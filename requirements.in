@@ -1,0 +1,6 @@
+django
+psycopg[binary,pool]
+
+# DEV
+ruff
+pytest
