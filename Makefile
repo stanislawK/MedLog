@@ -5,9 +5,9 @@ lint-local:
 lint:
 	$(COMPOSE_DEV) run --rm --no-deps medlog bash -c ruff check --fix
 format-local:
-	ruff format
+	ruff check --select I --fix && ruff format
 format:
-	$(COMPOSE_DEV) run --rm --no-deps medlog bash -c ruff format
+	$(COMPOSE_DEV) run --rm --no-deps medlog bash -c ruff check --select I --fix && ruff format
 bash:
 	$(COMPOSE_DEV) exec medlog bash
 psql:
