@@ -163,3 +163,5 @@ cython_debug/
 
 /postgres-data
 /.ruff_cache
+/node_modules
+/CACHE

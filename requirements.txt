@@ -7,7 +7,13 @@ asgiref==3.8.1
 django==5.0.6
     # via
     #   -r requirements.in
+    #   django-appconf
+    #   django-compressor
     #   django-htmx
+django-appconf==1.0.6
+    # via django-compressor
+django-compressor==4.5
+    # via -r requirements.in
 django-htmx==1.18.0
     # via -r requirements.in
 exceptiongroup==1.2.1
@@ -26,6 +32,10 @@ psycopg-pool==3.2.2
     # via psycopg
 pytest==8.2.2
     # via -r requirements.in
+rcssmin==1.1.2
+    # via django-compressor
+rjsmin==1.2.2
+    # via django-compressor
 ruff==0.5.0
     # via -r requirements.in
 sqlparse==0.5.0
