@@ -38,23 +38,44 @@ services:
       - traefik.http.services.medlog.loadbalancer.server.port=8000
       - traefik.http.routers.medlog.rule=Host(`${TRAEFIK_HOST}`)
       - traefik.http.routers.medlog.entrypoints=web
+      - traefik.http.routers.medlog.priority=1
     depends_on:
       postgres:
         condition: service_healthy
   proxy:
     image: "traefik:v3.0"
-    container_name: "proxy"
+    container_name: "medlog_proxy"
     env_file: .env
     restart: unless-stopped
-    ports:
-      - "80:80"
     networks:
       - traefik_proxy
     volumes:
       - "./traefik/traefik.dev.yaml:/traefik.yaml:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  medlog_nginx:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    container_name: medlog_nginx
+    networks:
+      - traefik_proxy
+      - default
+    volumes:
+      - type: volume
+        source: staticfiles
+        target: /usr/share/nginx/html/static
+        read_only: true
+        volume:
+          nocopy: true
+    depends_on:
+      - medlog
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.staticfiles.rule=PathPrefix(`/static/`)
+      - traefik.http.routers.staticfiles.entrypoints=web
+      - traefik.http.routers.staticfiles.priority=2
 volumes:
   postgres-data:
+  staticfiles:
 
 networks:
   traefik_proxy:
