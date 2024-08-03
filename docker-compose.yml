@@ -23,8 +23,6 @@ services:
     container_name: medlog_backend
     build:
       context: .
-    ports:
-      - "8000:8000"
     volumes:
       - ./medlog:/medlog
     entrypoint: /docker-entrypoint.sh
@@ -47,6 +45,9 @@ services:
     container_name: "medlog_proxy"
     env_file: .env
     restart: unless-stopped
+    ports:
+      - "80:80"
+      - "8080:8080"
     networks:
       - traefik_proxy
     volumes:
@@ -60,12 +61,7 @@ services:
       - traefik_proxy
       - default
     volumes:
-      - type: volume
-        source: staticfiles
-        target: /usr/share/nginx/html/static
-        read_only: true
-        volume:
-          nocopy: true
+      - ./medlog/staticfiles:/usr/share/nginx/html/static:ro
     depends_on:
       - medlog
     labels:
