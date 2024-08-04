@@ -1444,6 +1444,10 @@ input:checked + .toggle-bg {
   line-height: 1.25rem;
 }
 
+.font-bold {
+  font-weight: 700;
+}
+
 .font-extralight {
   font-weight: 200;
 }
@@ -1492,6 +1496,11 @@ input:checked + .toggle-bg {
 .text-green-800 {
   --tw-text-opacity: 1;
   color: rgb(3 84 63 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(240 82 82 / var(--tw-text-opacity));
 }
 
 .text-white {
