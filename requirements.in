@@ -2,6 +2,7 @@ django
 psycopg[binary,pool]
 django-htmx
 django-compressor
+gunicorn
 
 # DEV
 ruff

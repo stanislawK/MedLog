@@ -27,8 +27,8 @@ FROM python:3.12-slim-bookworm AS final
 
 COPY --from=builder /opt/venv /opt/venv
 
-COPY docker-entrypoint.sh .
-RUN chmod +x /docker-entrypoint.sh
+COPY run-backend.sh .
+RUN chmod +x /run-backend.sh
 
 COPY ./medlog /medlog
 
@@ -46,3 +46,5 @@ EXPOSE 8000
 # See here for more information:
 # https://pythonspeed.com/articles/multi-stage-docker-python/
 ENV PATH="/opt/venv/bin:$PATH"
+
+CMD ["/run-backend.sh"]
