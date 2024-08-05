@@ -1,0 +1,49 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-05 23:30+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: core/templates/test.html:8
+msgid "MedLog: Your Personal Health Record Keeper"
+msgstr "MedLog: Twój Osobisty Rejestr Zdrowia"
+
+#: core/templates/test.html:10
+msgid ""
+"MedLog is a user-friendly application designed to help you keep track of "
+"your health and medical records. Easily store, manage, and access your "
+"medical history anytime, anywhere, ensuring you stay in control of your "
+"health journey."
+msgstr ""
+"MedLog to intuicyjna aplikacja, która pozwala na przechowywanie i "
+"zarządzanie dokumentacją medyczną. Bez problemu przechowuj, zarządzaj i "
+"uzyskuj dostęp do swojej historii zdrowia w dowolnym miejscu i czasie, "
+"dzięki czemu będziesz mieć kontrolę nad swoim zdrowiem."
+
+#: core/templates/test.html:13
+msgid "Get started"
+msgstr "Rozpocznij"
+
+#: medlog/settings.py:119
+msgid "Polish"
+msgstr "Polish"
+
+#: medlog/settings.py:120
+msgid "English"
+msgstr "English"
