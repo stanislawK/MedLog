@@ -14,3 +14,7 @@ psql:
 	$(COMPOSE_DEV) exec postgres psql -U postgres
 watch-fe:
 	npx tailwindcss -i ./medlog/static/src/input.css -o ./medlog/static/src/output.css --watch
+messages:
+	cd ./medlog && django-admin makemessages -l pl
+compile-messages:
+	cd ./medlog && django-admin compilemessages

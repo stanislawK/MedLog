@@ -10,4 +10,4 @@ class HtmxHttpRequest(HttpRequest):
 
 @require_GET
 def index(request: HtmxHttpRequest) -> HttpResponse:
-    return render(request, "test.html")
+    return render(request, "home.html")
