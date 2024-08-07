@@ -1,0 +1,26 @@
+{% load i18n %}
+<div class="mt-6 mr-6 flex justify-end">
+    <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}">
+        <label class="inline-flex items-center cursor-pointer">
+            {% get_current_language as LANGUAGE_CODE %}
+            <input name="language" type="hidden" value="{% if LANGUAGE_CODE == 'pl' %}en{% else %}pl{% endif %}">
+            <input onClick="this.form.submit();" type="checkbox" name="languageToggleBtn" value="" class="sr-only peer" {% if LANGUAGE_CODE == 'pl' %}checked{% endif %}>
+            <span class="mx-2 text-sm 
+                {% if LANGUAGE_CODE == 'en' %} 
+                    font-bold text-gray-900 dark:text-gray-300
+                {% else %}
+                    font-light text-gray-500 dark:text-gray-300
+                {% endif %}"
+            >EN</span>
+            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600"></div>
+            <span class="mx-2 text-sm
+                {% if LANGUAGE_CODE == 'pl' %}
+                    font-bold text-gray-900 dark:text-gray-300
+                {% else %}
+                    font-light text-gray-500 dark:text-gray-300
+                {% endif %}"
+            >PL</span>
+        </label>
+    </form>
+</div>
