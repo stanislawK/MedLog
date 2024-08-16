@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-05 23:30+0200\n"
+"POT-Creation-Date: 2024-08-15 21:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,27 @@ msgstr ""
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: core/templates/test.html:8
+#: core/templates/components/loginModal.html:10
+msgid "Sign in"
+msgstr "Logowanie"
+
+#: core/templates/components/loginModal.html:23
+msgid "Your email"
+msgstr "Adres Email"
+
+#: core/templates/components/loginModal.html:27
+msgid "Your password"
+msgstr "Hasło"
+
+#: core/templates/components/loginModal.html:30
+msgid "Login to your account"
+msgstr "Zaloguj się do swojego konta"
+
+#: core/templates/home.html:12
 msgid "MedLog: Your Personal Health Record Keeper"
 msgstr "MedLog: Twój Osobisty Rejestr Zdrowia"
 
-#: core/templates/test.html:10
+#: core/templates/home.html:14
 msgid ""
 "MedLog is a user-friendly application designed to help you keep track of "
 "your health and medical records. Easily store, manage, and access your "
@@ -36,14 +52,14 @@ msgstr ""
 "uzyskuj dostęp do swojej historii zdrowia w dowolnym miejscu i czasie, "
 "dzięki czemu będziesz mieć kontrolę nad swoim zdrowiem."
 
-#: core/templates/test.html:13
+#: core/templates/home.html:17
 msgid "Get started"
 msgstr "Rozpocznij"
 
-#: medlog/settings.py:119
+#: medlog/settings.py:121
 msgid "Polish"
 msgstr "Polish"
 
-#: medlog/settings.py:120
+#: medlog/settings.py:122
 msgid "English"
 msgstr "English"

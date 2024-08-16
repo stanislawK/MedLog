@@ -10,4 +10,5 @@ class HtmxHttpRequest(HttpRequest):
 
 @require_GET
 def index(request: HtmxHttpRequest) -> HttpResponse:
-    return render(request, "home.html")
+    show_login_modal = request.GET.get("loginModal", 'false') == "true"
+    return render(request, "home.html", {"show_login_modal": show_login_modal})

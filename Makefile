@@ -18,3 +18,7 @@ messages:
 	cd ./medlog && django-admin makemessages -l pl
 compile-messages:
 	cd ./medlog && django-admin compilemessages
+pip-compile-local:
+	uv pip compile requirements.in -o requirements.txt
+pip-sync-local:
+	uv pip sync requirements.txt
