@@ -151,4 +151,5 @@ STATICFILES_FINDERS = (
     "compressor.finders.CompressorFinder",
 )
 
-LOGIN_URL = "/user/login/"
+LOGIN_URL = "/?loginModal=true"
+AUTH_USER_MODEL = "core.User"
