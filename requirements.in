@@ -7,3 +7,4 @@ gunicorn
 # DEV
 ruff
 pytest
+pytest-django
