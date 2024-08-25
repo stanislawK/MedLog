@@ -18,8 +18,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+admin.site.site_title = "Medlog site admin"
+admin.site.site_header = "Medlog administration"
+admin.site.index_title = "Site administration"
+
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("menage/", admin.site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
     path("", include("core.urls")),
 ]
