@@ -1,0 +1,28 @@
+{% load i18n %}
+<form hx-post="{% url 'login' %}">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <p class="my-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+    {% endfor %}
+    {% endif %}
+    <div class="my-4">
+        <label for="{{form.email.id_for_label}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{% translate "Your email" %}</label>
+        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required />
+        {% if form.email.errors %}
+        {% for error in form.email.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="mb-4">
+        <label for="{{ form.password.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{% translate "Your password" %}</label>
+        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+        {% if form.password.errors %}
+        {% for error in form.password.errors %}
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <button type="submit" class="my-4 w-full text-white bg-primary-700 hover:bg-primary-800 focus:ring-2 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-custom-gray-200 dark:hover:bg-custom-gray-300 dark:focus:ring-white">{% translate "Login to your account" %}</button>
+</form>

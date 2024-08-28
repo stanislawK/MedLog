@@ -19,12 +19,16 @@ def user_data():
 
 
 @pytest.fixture()
+@pytest.mark.django_db
 def superuser(super_user_data):
     superuser = User.objects.create_superuser(**super_user_data)
     return superuser
 
 
 @pytest.fixture()
+@pytest.mark.django_db
 def user(user_data):
     user = User.objects.create_user(**user_data)
+    user.is_active = True
+    user.save()
     return user
