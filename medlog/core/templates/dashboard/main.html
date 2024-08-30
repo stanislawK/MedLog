@@ -1,0 +1,11 @@
+{% extends "_base.html" %}
+{% block content %}
+{% load i18n %}
+{% load static %}
+<section id="mainDashboardSection" class="bg-white dark:bg-custom-gray-400 h-screen flex flex-col items-stretch justify-center">
+    {% include "components/switchLanguage.html" %}
+    {% include "components/switchTheme.html" %}
+    <p>Hello world</p>
+</section>
+
+{% endblock %}

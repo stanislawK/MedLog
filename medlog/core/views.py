@@ -1,7 +1,12 @@
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_POST
+from django_htmx.http import HttpResponseClientRedirect
 from django_htmx.middleware import HtmxDetails
+
+from core.forms import LoginForm
 
 
 class HtmxHttpRequest(HttpRequest):
@@ -10,5 +15,23 @@ class HtmxHttpRequest(HttpRequest):
 
 @require_GET
 def index(request: HtmxHttpRequest) -> HttpResponse:
-    show_login_modal = request.GET.get("loginModal", "false") == "true"
-    return render(request, "home.html", {"show_login_modal": show_login_modal})
+    context = dict()
+    context["show_login_modal"] = request.GET.get("loginModal", "false") == "true"
+    if context["show_login_modal"]:
+        context["form"] = LoginForm()
+    return render(request, "home.html", context)
+
+
+@require_POST
+def login_view(request: HtmxHttpRequest) -> HttpResponse:
+    form = LoginForm(request.POST)
+    if form.is_valid():
+        login(request, form.get_user())
+        return HttpResponseClientRedirect("/dashboard")
+    return render(request, "components/loginForm.html", {"form": form})
+
+
+@require_GET
+@login_required
+def dashboard_main(request: HtmxHttpRequest) -> HttpResponse:
+    return render(request, "dashboard/main.html")

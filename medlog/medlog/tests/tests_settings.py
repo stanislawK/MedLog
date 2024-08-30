@@ -14,6 +14,7 @@ DATABASES = {
     }
 }
 
+SECRET_KEY = "test_secret_key"
 PASSWORD_HASHERS = ("django.contrib.auth.hashers.MD5PasswordHasher",)
 
 logging.disable()

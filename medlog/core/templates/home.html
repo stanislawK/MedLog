@@ -2,7 +2,7 @@
 {% block content %}
 {% load i18n %}
 {% load static %}
-{% if show_login_modal %}{% include "components/loginModal.html" %}{% endif %}
+{% if show_login_modal and form %}{% include "components/loginModal.html" with form=form %}{% endif %}
 <section id="heroSection" class="bg-white dark:bg-custom-gray-400 h-screen flex flex-col items-stretch justify-center">
     {% include "components/switchLanguage.html" %}
     {% include "components/switchTheme.html" %}
