@@ -1,7 +1,7 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_POST
 from django_htmx.http import HttpResponseClientRedirect
 from django_htmx.middleware import HtmxDetails
@@ -35,3 +35,9 @@ def login_view(request: HtmxHttpRequest) -> HttpResponse:
 @login_required
 def dashboard_main(request: HtmxHttpRequest) -> HttpResponse:
     return render(request, "dashboard/main.html")
+
+
+@require_GET
+def logout_view(request: HtmxHttpRequest) -> HttpResponse:
+    logout(request)
+    return redirect("/")

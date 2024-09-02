@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-19 23:47+0200\n"
+"POT-Creation-Date: 2024-09-03 00:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,20 @@ msgstr ""
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
+#: core/forms/user.py:22
+msgid "Email"
+msgstr "Adres Email"
+
+#: core/forms/user.py:23
+#, fuzzy
+#| msgid "Your password"
+msgid "Password"
+msgstr "Hasło"
+
+#: core/forms/user.py:36
+msgid "Invalid email or password"
+msgstr "Niepoprawny adres email lub hasło"
+
 #: core/models/user.py:19
 msgid "The email must be set"
 msgstr "Adres email jest wymagany"
@@ -28,27 +42,27 @@ msgstr "Adres email jest wymagany"
 msgid "email address"
 msgstr "adres email"
 
+#: core/templates/components/loginForm.html:10
+msgid "Your email"
+msgstr "Adres Email"
+
+#: core/templates/components/loginForm.html:19
+msgid "Your password"
+msgstr "Hasło"
+
+#: core/templates/components/loginForm.html:27
+msgid "Login to your account"
+msgstr "Zaloguj się do swojego konta"
+
 #: core/templates/components/loginModal.html:14
 msgid "Sign in"
 msgstr "Logowanie"
 
-#: core/templates/components/loginModal.html:27
-msgid "Your email"
-msgstr "Adres Email"
-
-#: core/templates/components/loginModal.html:31
-msgid "Your password"
-msgstr "Hasło"
-
-#: core/templates/components/loginModal.html:34
-msgid "Login to your account"
-msgstr "Zaloguj się do swojego konta"
-
-#: core/templates/home.html:11
+#: core/templates/home.html:12
 msgid "MedLog: Your Personal Health Record Keeper"
 msgstr "MedLog: Twój Osobisty Rejestr Zdrowia"
 
-#: core/templates/home.html:13
+#: core/templates/home.html:14
 msgid ""
 "MedLog is a user-friendly application designed to help you keep track of "
 "your health and medical records. Easily store, manage, and access your "
@@ -60,7 +74,11 @@ msgstr ""
 "uzyskuj dostęp do swojej historii zdrowia w dowolnym miejscu i czasie, "
 "dzięki czemu będziesz mieć kontrolę nad swoim zdrowiem."
 
-#: core/templates/home.html:16
+#: core/templates/home.html:18
+msgid "Dashboard"
+msgstr "Panel Sterowania"
+
+#: core/templates/home.html:23
 msgid "Get started"
 msgstr "Rozpocznij"
 

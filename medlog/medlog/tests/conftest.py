@@ -1,5 +1,6 @@
 import pytest
 from core.models.user import User
+from django.test import Client
 
 
 @pytest.fixture(scope="module")
@@ -32,3 +33,9 @@ def user(user_data):
     user.is_active = True
     user.save()
     return user
+
+
+@pytest.fixture
+def authenticated_client(client: Client, user: User) -> Client:
+    client.force_login(user)
+    return client
