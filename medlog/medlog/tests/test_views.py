@@ -21,3 +21,12 @@ def test_login_correct_data(
     )
     assert response.__class__.__name__ == "HttpResponseClientRedirect"
     assert response.headers["HX-Redirect"] == "/dashboard"
+
+
+@pytest.mark.django_db
+def test_logout(authenticated_client: Client) -> None:
+    assert authenticated_client.session._SessionBase__session_key is not None
+    response = authenticated_client.get("/logout/")
+    assert response.status_code == 302
+    assert response.url == "/"
+    assert authenticated_client.session._SessionBase__session_key is None
