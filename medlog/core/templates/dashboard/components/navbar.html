@@ -1,0 +1,87 @@
+{% load i18n %}
+<nav class="relative px-6 py-6 w-full flex justify-between">
+  <div
+    class="hidden items-center ml-5 xl:ml-16 space-x-10 2xl:space-x-20 uppercase dark:text-white dark:font-light md:flex"
+  >
+    <!-- Menu-Items -->
+    <div class="group cursor-pointer">
+      <a href="" class="tracking-widest">{% translate "New Entry" %}</a>
+      <!-- Animated underline -->
+      <div
+        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100"
+      ></div>
+    </div>
+    <div class="group cursor-pointer">
+      <a href="" class="tracking-widest">{% translate "History" %}</a>
+      <!-- Animated underline -->
+      <div
+        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100"
+      ></div>
+    </div>
+    <div class="group cursor-pointer">
+      <a href="" class="tracking-widest">{% translate "Stats" %}</a>
+      <!-- Animated underline -->
+      <div
+        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100"
+      ></div>
+    </div>
+    <div class="group cursor-pointer">
+      <a href="" class="tracking-widest">{% translate "Export Logs" %}</a>
+      <!-- Animated underline -->
+      <div
+        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100"
+      ></div>
+    </div>
+  </div>
+  <div class="flex items-center space-x-2 md:hidden">
+    {% include "components/switchLanguage.html" %} 
+    {% include "components/switchTheme.html" %}
+  </div>
+  <div class="items-stretch hidden md:flex flex-col justify-center xl:mr-4">
+    <div class="mt-6 mr-6 flex justify-end">
+      {% include "components/switchLanguage.html" %}
+    </div>
+    <div class="mt-6 mr-6 flex justify-end">
+      {% include "components/switchTheme.html" %}
+    </div>
+  </div>
+  <!-- Hamburger button -->
+  <button
+    id="menu-btn"
+    class="hamburger z-30 block focus:outline-none md:hidden"
+  >
+    <span class="hamburger-top"></span>
+    <span class="hamburger-middle"></span>
+    <span class="hamburger-bottom"></span>
+  </button>
+  <div
+    id="menu"
+    class="fixed inset-0 z-20 hidden h-full min-h-screen w-full flex-col items-center divide-y divide-gray-500 self-end bg-custom-gray-400 px-6 py-1 pb-4 pt-24 uppercase tracking-widest text-white opacity-90"
+  >
+    <div class="w-full py-4 text-center">
+      <a href="#features" class="block hover:text-primary-700"
+        >{% translate "New Entry" %}</a
+      >
+    </div>
+    <div class="w-full py-4 text-center">
+      <a href="#download" class="block hover:text-text-primary-700"
+        >{% translate "History" %}</a
+      >
+    </div>
+    <div class="w-full py-4 text-center">
+      <a href="#faq" class="block hover:text-text-primary-700"
+        >{% translate "Stats" %}</a
+      >
+    </div>
+    <div class="w-full py-4 text-center">
+      <a href="" class="block hover:text-text-primary-700"
+        >{% translate "Export Logs" %}</a
+      >
+    </div>
+    <div class="w-full py-4 text-center">
+      <a href="" class="block hover:text-text-primary-700"
+        >{% translate "Logout" %}</a
+      >
+    </div>
+  </div>
+</nav>
