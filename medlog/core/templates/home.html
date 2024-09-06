@@ -5,8 +5,12 @@
 {% if show_login_modal and form %}{% include "components/loginModal.html" with form=form %}{% endif %}
 <section id="heroSection" class="bg-white dark:bg-custom-gray-400 h-screen flex flex-col items-stretch justify-center">
     {% if user.is_authenticated %}{% include "components/logout.html" %}{% endif %}
-    {% include "components/switchLanguage.html" %}
-    {% include "components/switchTheme.html" %}
+    <div class="mt-6 mr-6 flex justify-end">
+        {% include "components/switchLanguage.html" %}
+    </div>
+    <div class="mt-6 mr-6 flex justify-end">
+        {% include "components/switchTheme.html" %}
+    </div>
     <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 items-center grow">
         <div class="mr-auto place-self-center lg:col-span-7">
             <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">{% translate "MedLog: Your Personal Health Record Keeper" %}</h1>
