@@ -1,7 +1,7 @@
 <div class="mt-6 mr-6 flex justify-end">
     <form action="{% url 'logout' %}" method="get">
     <label class="inline-flex items-center cursor-pointer">
-    <input id="lopgout-toggle" type="checkbox" class="sr-only peer" onClick="this.form.submit();">
+    <input hx-on:click="this.form.submit();" id="lopgout-toggle" type="checkbox" class="sr-only peer">
         <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600"></div>
         <svg class="text-gray-900 dark:text-gray-300 w-5 h-5 mx-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
