@@ -49,6 +49,11 @@
   <button
     id="menu-btn"
     class="hamburger z-30 block focus:outline-none md:hidden"
+    hx-on:click='
+      htmx.toggleClass(htmx.find("#menu-btn"), "open");
+      htmx.toggleClass(htmx.find("#menu"), "flex");
+      htmx.toggleClass(htmx.find("#menu"), "hidden");
+    '
   >
     <span class="hamburger-top"></span>
     <span class="hamburger-middle"></span>

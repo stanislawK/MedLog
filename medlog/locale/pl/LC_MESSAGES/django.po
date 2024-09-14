@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-03 00:14+0200\n"
+"POT-Creation-Date: 2024-09-14 00:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,11 +58,96 @@ msgstr "Zaloguj się do swojego konta"
 msgid "Sign in"
 msgstr "Logowanie"
 
-#: core/templates/home.html:12
+#: core/templates/dashboard/components/addLogForm.html:4
+msgid "Choose the date of the log:"
+msgstr "Data wpisu"
+
+#: core/templates/dashboard/components/addLogForm.html:51
+msgid "Date"
+msgstr "Data wpisu"
+
+#: core/templates/dashboard/components/addLogForm.html:78
+msgid "Choose strength (0-10):"
+msgstr "Wybierz nasielenie"
+
+#: core/templates/dashboard/components/addLogForm.html:131
+msgid "Strength"
+msgstr "Nasilenie"
+
+#: core/templates/dashboard/components/addLogForm.html:156
+msgid "Preventive treatment"
+msgstr "Leczenie zapobiegawcze"
+
+#: core/templates/dashboard/components/addLogForm.html:162
+msgid "Preventive medicine"
+msgstr "Lek zapobiegawczy"
+
+#: core/templates/dashboard/components/addLogForm.html:166
+#: core/templates/dashboard/components/addLogForm.html:177
+msgid "Add new"
+msgstr "Dodaj nowy"
+
+#: core/templates/dashboard/components/addLogForm.html:168
+msgid "Acute care"
+msgstr "Leczenie doraźne"
+
+#: core/templates/dashboard/components/addLogForm.html:173
+msgid "Acute medicine"
+msgstr "Lek doraźny"
+
+#: core/templates/dashboard/components/addLogForm.html:191
+msgid "Notes"
+msgstr "Notatki"
+
+#: core/templates/dashboard/components/addLogForm.html:203
+msgid "Add HR and Blood Pressure"
+msgstr "Dodaj tętno, i ciśnienie krwi"
+
+#: core/templates/dashboard/components/addLogForm.html:242
+msgid "Systolic pressure"
+msgstr "Ciś. skurczowe"
+
+#: core/templates/dashboard/components/addLogForm.html:257
+msgid "Diastolic pressure"
+msgstr "Ciś. rozkurczowe"
+
+#: core/templates/dashboard/components/addLogForm.html:272
+msgid "Heart Rate"
+msgstr "Tętno"
+
+#: core/templates/dashboard/components/addLogForm.html:283
+msgid "Add Log"
+msgstr "Dodaj Wpis"
+
+#: core/templates/dashboard/components/navbar.html:8
+#: core/templates/dashboard/components/navbar.html:68
+msgid "New Entry"
+msgstr "Nowy wpis"
+
+#: core/templates/dashboard/components/navbar.html:15
+#: core/templates/dashboard/components/navbar.html:73
+msgid "History"
+msgstr "Historia"
+
+#: core/templates/dashboard/components/navbar.html:22
+#: core/templates/dashboard/components/navbar.html:78
+msgid "Stats"
+msgstr "Statystyki"
+
+#: core/templates/dashboard/components/navbar.html:29
+#: core/templates/dashboard/components/navbar.html:83
+msgid "Export Logs"
+msgstr "Eksport Logów"
+
+#: core/templates/dashboard/components/navbar.html:88
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: core/templates/home.html:16
 msgid "MedLog: Your Personal Health Record Keeper"
 msgstr "MedLog: Twój Osobisty Rejestr Zdrowia"
 
-#: core/templates/home.html:14
+#: core/templates/home.html:18
 msgid ""
 "MedLog is a user-friendly application designed to help you keep track of "
 "your health and medical records. Easily store, manage, and access your "
@@ -74,11 +159,11 @@ msgstr ""
 "uzyskuj dostęp do swojej historii zdrowia w dowolnym miejscu i czasie, "
 "dzięki czemu będziesz mieć kontrolę nad swoim zdrowiem."
 
-#: core/templates/home.html:18
+#: core/templates/home.html:22
 msgid "Dashboard"
 msgstr "Panel Sterowania"
 
-#: core/templates/home.html:23
+#: core/templates/home.html:27
 msgid "Get started"
 msgstr "Rozpocznij"
 

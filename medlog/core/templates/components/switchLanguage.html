@@ -5,7 +5,7 @@
     <label class="inline-flex items-center cursor-pointer">
         {% get_current_language as LANGUAGE_CODE %}
         <input name="language" type="hidden" value="{% if LANGUAGE_CODE == 'pl' %}en{% else %}pl{% endif %}">
-        <input onClick="this.form.submit();" type="checkbox" name="languageToggleBtn" value="" class="sr-only peer" {% if LANGUAGE_CODE == 'pl' %}checked{% endif %}>
+        <input hx-on:click="this.form.submit();" type="checkbox" name="languageToggleBtn" value="" class="sr-only peer" {% if LANGUAGE_CODE == 'pl' %}checked{% endif %}>
         <span class="mx-2 text-sm 
             {% if LANGUAGE_CODE == 'en' %} 
                 font-bold text-gray-900 dark:text-gray-300
