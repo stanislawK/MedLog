@@ -1,0 +1,217 @@
+{% load i18n %}
+<section class="bg-white py-8 antialiased dark:bg-custom-gray-300 md:py-16">
+  <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <div class="mx-auto max-w-5xl">
+      <div class="gap-4 sm:flex sm:items-center sm:justify-between">
+        <h2
+          class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl"
+        >
+          {% translate "My logs" %}
+        </h2>
+
+        <div
+          class="mt-6 gap-4 space-y-4 sm:mt-0 sm:flex sm:items-end sm:justify-end sm:space-y-0"
+        >
+          <div>
+            <label
+              for="order-type"
+              class="sr-only mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              >{% translate "Select start date" %}</label
+            >
+            <select
+              id="order-type"
+              class="block w-full min-w-[8rem] rounded-lg border border-primary-700 text-black hover:bg-primary-700 p-2.5 text-sm focus:border-primary-500 focus:ring-primary-500 dark:border-custom-gray-100 dark:bg-transparent dark:text-white dark:placeholder:text-gray-400 dark:focus:border-white dark:focus:ring-custom-gray-400"
+            >
+              <option selected>2024-10-01</option>
+              <option value="pre-order">2024-10-01</option>
+              <option value="transit">2024-10-01</option>
+              <option value="confirmed">2024-10-01</option>
+              <option value="cancelled">2024-10-01</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flow-root sm:mt-8">
+        <div class="divide-y divide-gray-200 dark:divide-gray-400">
+          <div class="flex flex-wrap items-center gap-y-4 py-6">
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "Date:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
+              >
+                <a href="#" class="hover:underline">2024-10-01</a>
+              </dd>
+            </dl>
+
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "Strength:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
+              >
+                5
+              </dd>
+            </dl>
+
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "Preventive medicine:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+              >
+                Aspirine
+              </dd>
+              <dd
+                class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
+              >
+                asphirine 50mg
+              </dd>
+            </dl>
+
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "Acute medicine:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+              >
+                Sumamigren
+              </dd>
+              <dd
+                class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
+              >
+                sumatriptan 100mg
+              </dd>
+            </dl>
+
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "HR:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+              >
+                120/80 55
+              </dd>
+            </dl>
+
+            <div
+              class="w-full grid sm:grid-cols-2 lg:flex lg:w-24 lg:items-center lg:justify-end gap-4"
+            >
+              <button
+                type="button"
+                class="w-full rounded-lg border border-primary-700 px-8 py-2 text-center text-sm font-medium text-black hover:bg-primary-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-custom-gray-100 dark:text-white dark:hover:bg-custom-gray-100 dark:hover:text-white dark:focus:ring-custom-gray-400 lg:w-auto"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-y-4 py-6">
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "Date:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
+              >
+                <a href="#" class="hover:underline">2024-10-01</a>
+              </dd>
+            </dl>
+
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "Strength:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
+              >
+                5
+              </dd>
+            </dl>
+
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "Preventive medicine:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+              >
+                Aspirine
+              </dd>
+              <dd
+                class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
+              >
+                asphirine 50mg
+              </dd>
+            </dl>
+
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "Acute medicine:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+              >
+                Sumamigren
+              </dd>
+              <dd
+                class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
+              >
+                sumatriptan 100mg
+              </dd>
+            </dl>
+
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+              <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+              >
+                {% translate "HR:" %}
+              </dt>
+              <dd
+                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+              >
+                120/80 55
+              </dd>
+            </dl>
+
+            <div
+              class="w-full grid sm:grid-cols-2 lg:flex lg:w-24 lg:items-center lg:justify-end gap-4"
+            >
+              <button
+                type="button"
+                class="w-full rounded-lg border border-primary-700 px-8 py-2 text-center text-sm font-medium text-black hover:bg-primary-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-custom-gray-100 dark:text-white dark:hover:bg-custom-gray-100 dark:hover:text-white dark:focus:ring-custom-gray-400 lg:w-auto"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script></script>
