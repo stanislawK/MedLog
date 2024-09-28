@@ -101,7 +101,7 @@
     </button>
     <input
       type="text"
-      id="bedrooms-input"
+      id="strength-input"
       data-input-counter
       data-input-counter-min="1"
       data-input-counter-max="5"
@@ -284,6 +284,21 @@
   </button>
 </form>
 <script>
+  // Strngth input logic
+  const increaseButton = document.getElementById("increment-strength-btn");
+  const decreaseButton = document.getElementById("decrement-strength-btn");
+  const strengthInput = document.getElementById("strength-input");
+  // Increase the value
+  increaseButton.addEventListener("click", () => {
+    strengthInput.value = Math.min(10, parseInt(strengthInput.value) + 1);
+  });
+
+  // Decrease the value and prevent going below 0
+  decreaseButton.addEventListener("click", () => {
+    strengthInput.value = Math.max(0, parseInt(strengthInput.value) - 1);
+  });
+
+  // HR and blood pressure accordion
   function toggleAccordion(index) {
     const content = document.getElementById(`content-${index}`);
     const icon = document.getElementById(`icon-${index}`);
