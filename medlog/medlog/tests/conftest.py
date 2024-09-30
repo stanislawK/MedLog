@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 from core.models.user import User
 from django.test import Client
@@ -16,6 +18,16 @@ def user_data():
     return {
         "email": "JohnLogin@example.com",
         "password": "TestTest123",
+    }
+
+
+@pytest.fixture(scope="module")
+def hr_record_data():
+    return {
+        "systolic": 120,
+        "diastolic": 80,
+        "hr": 55,
+        "date": datetime.now(),
     }
 
 
