@@ -226,6 +226,58 @@
       id="content-1"
       class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
     >
+    {% for hr_record in hr_records %}
+    <div class="grid md:grid-cols-3 md:gap-6">
+      <div class="relative z-0 w-full mb-5 mt-2 group">
+        <input
+          type="text"
+          name="systolic"
+          id="systolic"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer"
+          placeholder=" "
+          value={{ hr_record.systolic }}
+          required
+        />
+        <label
+          for="systolic"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-700 peer-focus:dark:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >{% translate "Systolic pressure" %}</label
+        >
+      </div>
+      <div class="relative z-0 w-full mb-5 md:mt-2 group">
+        <input
+          type="text"
+          name="diastolic"
+          id="diastolic"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer"
+          placeholder=" "
+          value={{ hr_record.diastolic }}
+          required
+        />
+        <label
+          for="diastolic"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-700 peer-focus:dark:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >{% translate "Diastolic pressure" %}</label
+        >
+      </div>
+      <div class="relative z-0 w-full mb-7 md:mt-2 group">
+        <input
+          type="text"
+          name="hr"
+          id="hr"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer"
+          placeholder=" "
+          value={{ hr_record.hr }}
+          required
+        />
+        <label
+          for="hr"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-700 peer-focus:dark:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >{% translate "Heart Rate" %}</label
+        >
+      </div>
+    </div>
+    {% endfor %}
       <div class="grid md:grid-cols-3 md:gap-6">
         <div class="relative z-0 w-full mb-5 mt-2 group">
           <input

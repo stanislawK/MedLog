@@ -106,7 +106,9 @@
               <dd
                 class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
-                120/80 55
+                {% for hr_record in hr_records %}
+                  {{ hr_record }}
+                {% endfor %}
               </dd>
             </dl>
 

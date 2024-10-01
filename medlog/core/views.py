@@ -34,7 +34,9 @@ def login_view(request: HtmxHttpRequest) -> HttpResponse:
 @require_GET
 @login_required
 def dashboard_main(request: HtmxHttpRequest) -> HttpResponse:
-    return render(request, "dashboard/main.html")
+    context = dict()
+    context["hr_records"] = request.user.hr_records.all()
+    return render(request, "dashboard/main.html", context=context)
 
 
 @require_GET
