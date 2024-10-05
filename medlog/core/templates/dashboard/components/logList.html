@@ -67,16 +67,18 @@
               >
                 {% translate "Preventive medicine:" %}
               </dt>
+              {% for preventive_med in preventive_medicines %}
               <dd
                 class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
-                Aspirine
+                {{ preventive_med.marketing_name }}
               </dd>
               <dd
                 class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
               >
-                asphirine 50mg
+                {{ preventive_med }}
               </dd>
+              {% endfor %}
             </dl>
 
             <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
@@ -85,16 +87,18 @@
               >
                 {% translate "Acute medicine:" %}
               </dt>
+              {% for acute_med in acute_medicines %}
               <dd
                 class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
-                Sumamigren
+              {{ acute_med.marketing_name }}
               </dd>
               <dd
                 class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
               >
-                sumatriptan 100mg
+                {{ acute_med }}
               </dd>
+              {% endfor %}
             </dl>
 
             <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">

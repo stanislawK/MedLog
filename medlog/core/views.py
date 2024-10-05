@@ -7,6 +7,7 @@ from django_htmx.http import HttpResponseClientRedirect
 from django_htmx.middleware import HtmxDetails
 
 from core.forms import LoginForm
+from core.models import Medicine
 
 
 class HtmxHttpRequest(HttpRequest):
@@ -36,6 +37,8 @@ def login_view(request: HtmxHttpRequest) -> HttpResponse:
 def dashboard_main(request: HtmxHttpRequest) -> HttpResponse:
     context = dict()
     context["hr_records"] = request.user.hr_records.all()
+    context["preventive_medicines"] = Medicine.objects.filter(type="preventive")
+    context["acute_medicines"] = Medicine.objects.filter(type="acute")
     return render(request, "dashboard/main.html", context=context)
 
 
