@@ -1,7 +1,10 @@
 {% load i18n %}
+{% load extra_filters %}
 <section class="bg-white py-8 antialiased dark:bg-custom-gray-300 md:py-16">
   <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <div class="mx-auto max-w-5xl">
+  
+      <!-- Logs Header-->
       <div class="gap-4 sm:flex sm:items-center sm:justify-between">
         <h2
           class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl"
@@ -32,8 +35,11 @@
         </div>
       </div>
 
+      <!-- Logs Content -->
       <div class="mt-6 flow-root sm:mt-8">
         <div class="divide-y divide-gray-200 dark:divide-gray-400">
+          <!-- Logs row -->
+          {% for day_log in day_logs %}
           <div class="flex flex-wrap items-center gap-y-4 py-6">
             <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
               <dt
@@ -44,7 +50,7 @@
               <dd
                 class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
               >
-                <a href="#" class="hover:underline">2024-10-01</a>
+                <a href="#" class="hover:underline">{{ day_log }}</a>
               </dd>
             </dl>
 
@@ -57,17 +63,17 @@
               <dd
                 class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
               >
-                5
+                {{ day_log.strength }}
               </dd>
             </dl>
 
-            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
               <dt
                 class="text-base font-medium text-gray-500 dark:text-gray-400"
               >
                 {% translate "Preventive medicine:" %}
               </dt>
-              {% for preventive_med in preventive_medicines %}
+              {% for preventive_med in day_log.medicines.all|preventive %}
               <dd
                 class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
@@ -78,16 +84,22 @@
               >
                 {{ preventive_med }}
               </dd>
+              {% empty %}
+              <dd
+              class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+              >
+               -
+            </dd>
               {% endfor %}
             </dl>
 
-            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
+            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
               <dt
                 class="text-base font-medium text-gray-500 dark:text-gray-400"
               >
                 {% translate "Acute medicine:" %}
               </dt>
-              {% for acute_med in acute_medicines %}
+              {% for acute_med in day_log.medicines.all|acute %}
               <dd
                 class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
@@ -97,6 +109,12 @@
                 class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
               >
                 {{ acute_med }}
+              </dd>
+              {% empty %}
+              <dd
+              class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+              >
+              -
               </dd>
               {% endfor %}
             </dl>
@@ -110,7 +128,7 @@
               <dd
                 class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
-                {% for hr_record in hr_records %}
+                {% for hr_record in day_log.hr_records.all %}
                   {{ hr_record }}
                 {% endfor %}
               </dd>
@@ -127,94 +145,8 @@
               </button>
             </div>
           </div>
+          {% endfor %}
 
-          <div class="flex flex-wrap items-center gap-y-4 py-6">
-            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
-              <dt
-                class="text-base font-medium text-gray-500 dark:text-gray-400"
-              >
-                {% translate "Date:" %}
-              </dt>
-              <dd
-                class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
-              >
-                <a href="#" class="hover:underline">2024-10-01</a>
-              </dd>
-            </dl>
-
-            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
-              <dt
-                class="text-base font-medium text-gray-500 dark:text-gray-400"
-              >
-                {% translate "Strength:" %}
-              </dt>
-              <dd
-                class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
-              >
-                5
-              </dd>
-            </dl>
-
-            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-              <dt
-                class="text-base font-medium text-gray-500 dark:text-gray-400"
-              >
-                {% translate "Preventive medicine:" %}
-              </dt>
-              <dd
-                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
-              >
-                Aspirine
-              </dd>
-              <dd
-                class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
-              >
-                asphirine 50mg
-              </dd>
-            </dl>
-
-            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-              <dt
-                class="text-base font-medium text-gray-500 dark:text-gray-400"
-              >
-                {% translate "Acute medicine:" %}
-              </dt>
-              <dd
-                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
-              >
-                Sumamigren
-              </dd>
-              <dd
-                class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
-              >
-                sumatriptan 100mg
-              </dd>
-            </dl>
-
-            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
-              <dt
-                class="text-base font-medium text-gray-500 dark:text-gray-400"
-              >
-                {% translate "HR:" %}
-              </dt>
-              <dd
-                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
-              >
-                120/80 55
-              </dd>
-            </dl>
-
-            <div
-              class="w-full grid sm:grid-cols-2 lg:flex lg:w-24 lg:items-center lg:justify-end gap-4"
-            >
-              <button
-                type="button"
-                class="w-full rounded-lg border border-primary-700 px-8 py-2 text-center text-sm font-medium text-black hover:bg-primary-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-custom-gray-100 dark:text-white dark:hover:bg-custom-gray-100 dark:hover:text-white dark:focus:ring-custom-gray-400 lg:w-auto"
-              >
-                Edit
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

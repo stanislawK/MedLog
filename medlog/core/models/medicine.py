@@ -10,7 +10,7 @@ class Medicine(models.Model):
     class Meta:
         db_table = "Medicines"
 
-    marketing_name = models.CharField(max_length=255, null=True)
+    marketing_name = models.CharField(max_length=255, null=True, blank=True)
     latin_name = models.CharField(max_length=255)
     dose = models.IntegerField()
     dose_unit = models.CharField(max_length=64)
