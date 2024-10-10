@@ -1,3 +1,5 @@
+from datetime import date, timedelta
+
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
@@ -7,7 +9,6 @@ from django_htmx.http import HttpResponseClientRedirect
 from django_htmx.middleware import HtmxDetails
 
 from core.forms import LoginForm
-from core.models import Medicine
 
 
 class HtmxHttpRequest(HttpRequest):
@@ -36,9 +37,9 @@ def login_view(request: HtmxHttpRequest) -> HttpResponse:
 @login_required
 def dashboard_main(request: HtmxHttpRequest) -> HttpResponse:
     context = dict()
-    context["hr_records"] = request.user.hr_records.all()
-    context["preventive_medicines"] = Medicine.objects.filter(type="preventive")
-    context["acute_medicines"] = Medicine.objects.filter(type="acute")
+    context["day_logs"] = request.user.day_logs.filter(
+        date__gte=date.today() - timedelta(days=30)
+    )
     return render(request, "dashboard/main.html", context=context)
 
 
