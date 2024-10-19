@@ -1,5 +1,9 @@
 {% load i18n %}
-<form class="max-w-md mx-auto px-4 my-4">
+{% load extra_filters %}
+<form class="max-w-md mx-auto px-4 my-4" id="add-log-form" hx-post="add-log/" hx-swap="outerHTML">
+  {% csrf_token %}
+
+  <!-- Strength input -->
   <label for="log-date-input" class="sr-only"
     >{% translate "Choose the date of the log:" %}</label
   >
@@ -7,7 +11,21 @@
     <button
       type="button"
       id="date-back-btn"
-      class="bg-primary-700 hover:bg-primary-800 dark:bg-custom-gray-200 dark:hover:bg-custom-gray-300 dark:border-gray-600 border border-gray-300 rounded-s-lg py-3 px-4 h-11 focus:ring-2 focus:outline-none focus:ring-primary-300 dark:focus:ring-white"
+      class="
+      bg-primary-700 
+      hover:bg-primary-800 
+      dark:bg-custom-gray-200 
+      dark:hover:bg-custom-gray-300 
+      dark:border-gray-600 border 
+      border-gray-300 
+      focus:ring-2 
+      focus:outline-none 
+      focus:ring-primary-300 
+      dark:focus:ring-white 
+      rounded-s-lg py-3 px-4 h-11 hover:text-white focus:z-10"
+      hx-get="add-log/{{previous_day}}/"
+      hx-target='#add-log-form'
+      hx-swap="outerHTML"
     >
       <svg
         class="w-4 h-4 text-gray-800 dark:text-white"
@@ -28,9 +46,10 @@
     <input
       type="text"
       id="log-date-input"
+      name="date"
       class="border-x-0 h-11 font-medium text-center text-sm pb-6 bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
       placeholder=""
-      value="2024-08-20"
+      value={{current_entry}}
       required
     />
     <div
@@ -54,7 +73,10 @@
       type="button"
       id="date-forward-btn"
       class="bg-primary-700 hover:bg-primary-800 dark:bg-custom-gray-200 dark:hover:bg-custom-gray-300 dark:border-gray-600 border border-gray-300 focus:ring-2 focus:outline-none focus:ring-primary-300 dark:focus:ring-white rounded-e-lg py-3 px-4 h-11"
-    >
+      hx-get="add-log/{{next_day}}/"
+      hx-target='#add-log-form'
+      hx-swap="outerHTML"
+      >
       <svg
         class="w-4 h-4 text-gray-800 dark:text-white"
         aria-hidden="true"
@@ -74,14 +96,16 @@
       </svg>
     </button>
   </div>
-  <label for="bedrooms-input" class="sr-only"
+
+  <!-- Strength input -->
+  <label for="strength-input" class="sr-only"
     >{% translate "Choose strength (0-10):" %}</label
   >
   <div class="relative flex items-center mb-6">
     <button
       type="button"
       id="decrement-strength-btn"
-      class="bg-primary-700 hover:bg-primary-800 dark:bg-custom-gray-200 dark:hover:bg-custom-gray-300 dark:border-gray-600 border border-gray-300 rounded-s-lg py-3 px-[1.15rem] h-11 focus:ring-2 focus:outline-none focus:ring-primary-300 dark:focus:ring-white"
+      class="bg-primary-700 hover:bg-primary-800 dark:bg-custom-gray-200 dark:hover:bg-custom-gray-300 dark:border-gray-600 border border-gray-300 rounded-s-lg py-3 px-[1.15rem] h-11 focus:ring-2 focus:outline-none focus:ring-primary-300 dark:focus:ring-white focus:z-10"
     >
       <svg
         class="w-3 h-3 text-gray-900 dark:text-white"
@@ -107,7 +131,8 @@
       data-input-counter-max="5"
       class="border-x-0 h-11 font-medium text-center text-sm pb-6 bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
       placeholder=""
-      value="2"
+      value={{current_entry.strength}}
+      name="strength"
       required
     />
     <div
@@ -152,38 +177,62 @@
       </svg>
     </button>
   </div>
+
+  <!-- Preventitive -->
   <label for="preventive_select" class="sr-only"
     >{% translate "Preventive treatment" %}</label
   >
   <select
     id="preventive_select"
-    class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-gray-200 peer dark:text-gray-400 text-gray-900 mb-4"
+    name="preventives"
+    multiple
+    class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-gray-200 peer dark:text-gray-400 text-gray-900 mb-4 cursor-pointer"
   >
-    <option selected>{% translate "Preventive medicine" %}</option>
-    <option value="US">United States</option>
-    <option value="CA">Canada</option>
-    <option value="FR">France</option>
+    {% if current_entry.medicines.all|preventive %}
+    {% for available_preventive in available_preventives %}
+    <option value={{available_preventive.id}} {% if current_entry.preventive.id == available_preventive.id %}selected{% endif %}>{{available_preventive.marketing_name}} ({{available_preventive}})</option>
+    {% endfor %}
     <option value="DE">+ {% translate "Add new" %}</option>
+    {% else %}
+    <option selected>{% translate "Preventive medicine" %}</option>
+    {% for available_preventive in available_preventives %}
+    <option value={{available_preventive.id}}>{{available_preventive.marketing_name}} ({{available_preventive}})</option>
+    {% endfor %}
+    <option value="DE">+ {% translate "Add new" %}</option>
+    {% endif %}
   </select>
+
+  <!-- Acute -->
   <label for="acute_select" class="sr-only">{% translate "Acute care" %}</label>
   <select
     id="acute_select"
-    class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-gray-200 peer dark:text-gray-400 text-gray-900 mb-4"
+    name="acutes"
+    multiple
+    class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-gray-200 peer dark:text-gray-400 text-gray-900 mb-4 cursor-pointer"
   >
-    <option selected>{% translate "Acute medicine" %}</option>
-    <option value="US">United States</option>
-    <option value="CA">Canada</option>
-    <option value="FR">France</option>
-    <option value="DE">+ {% translate "Add new" %}</option>
+  {% if current_entry.medicines.all|acute %}
+  {% for available_acute in available_acutes %}
+  <option value={{available_acute.id}} {% if current_entry.preventive.id == available_acute.id %}selected{% endif %}>{{available_acute.marketing_name}} ({{available_acute}})</option>
+  {% endfor %}
+  <option value="DE">+ {% translate "Add new" %}</option>
+  {% else %}
+  <option selected>{% translate "Acute medicine" %}</option>
+  {% for available_acute in available_acutes %}
+  <option value={{available_acute.id}}>{{available_acute.marketing_name}} ({{available_acute}})</option>
+  {% endfor %}
+  <option value="DE">+ {% translate "Add new" %}</option>
+  {% endif %}
   </select>
+
+  <!-- Notes -->
   <div class="relative z-0 w-full mb-5 group">
     <input
       type="text"
-      name="additional_notes"
+      name="notes"
       id="additional_notes"
       class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer mb-4"
       placeholder=" "
-      required
+      value={% if current_entry.notes %}{{current_entry.notes}}{% else %}''{% endif %}
     />
     <label
       for="additional_notes"
@@ -191,6 +240,8 @@
       >{% translate "Notes" %}</label
     >
   </div>
+
+  <!-- HR and Blood Pressure -->
   <div
     id="accordion-block"
     class="border-0 border-b-2 border-gray-200 dark:border-gray-600 bg-transparent dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-20 mb-9"
@@ -226,7 +277,7 @@
       id="content-1"
       class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
     >
-    {% for hr_record in hr_records %}
+    {% for hr_record in current_entry.hr_records.all %}
     <div class="grid md:grid-cols-3 md:gap-6">
       <div class="relative z-0 w-full mb-5 mt-2 group">
         <input
@@ -236,7 +287,6 @@
           class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer"
           placeholder=" "
           value={{ hr_record.systolic }}
-          required
         />
         <label
           for="systolic"
@@ -252,7 +302,6 @@
           class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer"
           placeholder=" "
           value={{ hr_record.diastolic }}
-          required
         />
         <label
           for="diastolic"
@@ -268,7 +317,6 @@
           class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer"
           placeholder=" "
           value={{ hr_record.hr }}
-          required
         />
         <label
           for="hr"
@@ -286,7 +334,6 @@
             id="systolic"
             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer"
             placeholder=" "
-            required
           />
           <label
             for="systolic"
@@ -301,7 +348,6 @@
             id="diastolic"
             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer"
             placeholder=" "
-            required
           />
           <label
             for="diastolic"
@@ -316,7 +362,6 @@
             id="hr"
             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-200 peer"
             placeholder=" "
-            required
           />
           <label
             for="hr"
@@ -336,19 +381,22 @@
   </button>
 </form>
 <script>
-  // Strngth input logic
-  const increaseButton = document.getElementById("increment-strength-btn");
-  const decreaseButton = document.getElementById("decrement-strength-btn");
-  const strengthInput = document.getElementById("strength-input");
-  // Increase the value
-  increaseButton.addEventListener("click", () => {
-    strengthInput.value = Math.min(10, parseInt(strengthInput.value) + 1);
-  });
+  // Strength input logic
+  (() => {
+    const increaseButton = document.getElementById("increment-strength-btn");
+    const decreaseButton = document.getElementById("decrement-strength-btn");
+    const strengthInput = document.getElementById("strength-input");
+    // Increase the value
+    increaseButton.addEventListener("click", () => {
+      strengthInput.value = Math.min(10, parseInt(strengthInput.value) + 1);
+    });
+  
+    // Decrease the value and prevent going below 0
+    decreaseButton.addEventListener("click", () => {
+      strengthInput.value = Math.max(0, parseInt(strengthInput.value) - 1);
+    });
 
-  // Decrease the value and prevent going below 0
-  decreaseButton.addEventListener("click", () => {
-    strengthInput.value = Math.max(0, parseInt(strengthInput.value) - 1);
-  });
+  })();
 
   // HR and blood pressure accordion
   function toggleAccordion(index) {

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import pytest
-from core.models.user import User
+from core.models import HrRecord, Medicine, User
 from django.test import Client
 
 
@@ -51,3 +51,33 @@ def user(user_data):
 def authenticated_client(client: Client, user: User) -> Client:
     client.force_login(user)
     return client
+
+
+@pytest.fixture
+@pytest.mark.django_db
+def hr_record(hr_record_data, user: User):
+    return HrRecord.objects.create(**{**hr_record_data, "user": user})
+
+
+@pytest.fixture
+@pytest.mark.django_db
+def preventive():
+    return Medicine.objects.create(
+        marketing_name="Aspirin",
+        latin_name="Aspirin",
+        dose=10,
+        dose_unit="mg",
+        type="preventive",
+    )
+
+
+@pytest.fixture
+@pytest.mark.django_db
+def acute():
+    return Medicine.objects.create(
+        marketing_name="Ibuprofen",
+        latin_name="Ibuprofen",
+        dose=10,
+        dose_unit="mg",
+        type="acute",
+    )
