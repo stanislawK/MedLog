@@ -2,18 +2,14 @@ from datetime import date, timedelta
 
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
 from django_htmx.http import HttpResponseClientRedirect
-from django_htmx.middleware import HtmxDetails
 
 from core.forms import LogEntryForm, LoginForm
 from core.models import Medicine
-
-
-class HtmxHttpRequest(HttpRequest):
-    htmx: HtmxDetails
+from core.utils import HtmxHttpRequest, parse_day_log_form
 
 
 @require_GET
@@ -56,20 +52,7 @@ def add_log_form(request: HtmxHttpRequest, req_date: str | None = None) -> HttpR
         except ValueError:
             requested_date = date.today()
     elif request.method == "POST" and request.htmx:
-        form = LogEntryForm(request.POST)
-        if form.is_valid():
-            requested_date = form.cleaned_data["date"]
-            if not (
-                day_log := request.user.day_logs.filter(date=requested_date).first()
-            ):
-                day_log = request.user.day_logs.create(date=requested_date, strength=0)
-            day_log.strength = form.cleaned_data["strength"]
-            day_log.notes = form.cleaned_data["notes"]
-            day_log.medicines.add(*form.cleaned_data["acutes"])
-            day_log.medicines.add(*form.cleaned_data["preventives"])
-            day_log.save()
-        else:
-            requested_date = date.today()
+        requested_date = parse_day_log_form(request)
     else:
         requested_date = date.today()
     context["current_entry"] = request.user.day_logs.filter(date=requested_date).first()
