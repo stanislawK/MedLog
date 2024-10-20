@@ -14,4 +14,4 @@ class DayLog(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="day_logs")
 
     def __str__(self):
-        return self.date.strftime("%d-%m-%Y")
+        return self.date.isoformat()

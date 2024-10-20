@@ -5,6 +5,6 @@
 <section id="mainDashboardSection" class="bg-white dark:bg-custom-gray-400 overflow-x-hidden h-screen">
     {% include "dashboard/components/navbar.html" %}
     {% include "dashboard/components/logList.html" %}
-    {% include "dashboard/components/addLogForm.html" %}
+    <div hx-trigger="load" hx-get="add-log/">test</div>
 </section>
 {% endblock %}
