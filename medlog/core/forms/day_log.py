@@ -13,7 +13,7 @@ class ListField(forms.Field):
             return value.split(",")
         elif isinstance(value, str) or isinstance(value, int):
             return [value]
-        return value
+        return []
 
     def validate(self, value):
         """Check if value consists only of valid integers."""
@@ -34,7 +34,9 @@ class LogEntryForm(forms.Form):
     hr_records = forms.MultipleChoiceField(required=False)
 
     def clean_preventives(self):
-        preventives_raw = self.cleaned_data.get("preventives")
+        preventives_raw = self.fields["preventives"].clean(
+            self.data.getlist("preventives")
+        )
         if isinstance(preventives_raw, list):
             return Medicine.objects.filter(pk__in=preventives_raw)
         elif isinstance(preventives_raw, str) and preventives_raw.isnumeric():
@@ -42,7 +44,7 @@ class LogEntryForm(forms.Form):
         return list()
 
     def clean_acutes(self):
-        acutes_raw = self.cleaned_data.get("acutes")
+        acutes_raw = self.fields["acutes"].clean(self.data.getlist("acutes"))
         if isinstance(acutes_raw, list):
             return Medicine.objects.filter(pk__in=acutes_raw)
         elif isinstance(acutes_raw, str) and acutes_raw.isnumeric():
