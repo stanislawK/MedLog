@@ -355,6 +355,7 @@
   </div>
 
   <!-- HR and Blood Pressure -->
+  {% with hr_record=current_entry.hr_records.first %}
   <div
     id="accordion-block"
     class="border-0 border-b-2 border-gray-200 dark:border-gray-600 bg-transparent dark:focus:border-custom-gray-200 focus:outline-none focus:ring-0 focus:border-custom-gray-20 mb-9"
@@ -364,7 +365,11 @@
       type="button"
       class="text-sm w-full flex justify-between items-center py-5 text-gray-900 dark:text-gray-400"
     >
+      {% if hr_record %}
+      <span>{{hr_record}}</span>
+      {% else %}
       <span>{% translate "Add HR and Blood Pressure" %}</span>
+      {% endif %}
       <span
         id="icon-1"
         class="text-slate-800 transition-transform duration-300"
@@ -390,7 +395,7 @@
       id="content-1"
       class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
     >
-      {% for hr_record in current_entry.hr_records.all %}
+      {% if hr_record %}
       <div class="grid md:grid-cols-3 md:gap-6">
         <div class="relative z-0 w-full mb-5 mt-2 group">
           <input
@@ -438,7 +443,7 @@
           >
         </div>
       </div>
-      {% endfor %}
+      {% else %}
       <div class="grid md:grid-cols-3 md:gap-6">
         <div class="relative z-0 w-full mb-5 mt-2 group">
           <input
@@ -483,8 +488,10 @@
           >
         </div>
       </div>
+      {% endif %}
     </div>
   </div>
+  {% endwith %}
 
   <button
     type="submit"

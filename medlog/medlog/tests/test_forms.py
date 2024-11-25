@@ -1,6 +1,7 @@
 import pytest
 from core.forms import LogEntryForm
 from core.models import Medicine
+from django.http import QueryDict
 
 
 @pytest.mark.django_db
@@ -12,22 +13,11 @@ def test_log_entry_form(hr_record, acute, preventive) -> None:
         dose_unit="mg",
         type="preventive",
     )
-    correct_data = {
-        "date": hr_record.date,
-        "strength": 10,
-        "notes": "test",
-        "acutes": acute.id,
-        "preventives": [preventive.id, preventive2.id],
-    }
-    correct_form = LogEntryForm(data=correct_data)
+
+    raw_correct_data = f"date=2023-10-20&strength=10&notes=test&acutes={acute.id}&preventives={preventive.id}&preventives={preventive2.id}"
+    correct_form = LogEntryForm(data=QueryDict(raw_correct_data))
     assert correct_form.is_valid()
 
-    incorrect_data = {
-        "date": hr_record.date,
-        "strength": 10,
-        "notes": "test",
-        "acutes": "test",
-        "preventives": [preventive.id, preventive2.id],
-    }
-    incorrect_form = LogEntryForm(data=incorrect_data)
+    raw_incorrect_data = f"date=2023-10-20&strength=10&notes=test&acutes=test&preventives={preventive.id}&preventives={preventive2.id}"
+    incorrect_form = LogEntryForm(data=QueryDict(raw_incorrect_data))
     assert not incorrect_form.is_valid()
