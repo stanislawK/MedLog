@@ -38,7 +38,10 @@ pytest==8.2.2
     # via
     #   -r requirements.in
     #   pytest-django
+    #   pytest-mock
 pytest-django==4.8.0
+    # via -r requirements.in
+pytest-mock==3.14.0
     # via -r requirements.in
 rcssmin==1.1.2
     # via django-compressor

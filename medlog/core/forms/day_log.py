@@ -31,7 +31,7 @@ class LogEntryForm(forms.Form):
     notes = forms.CharField(max_length=255, required=False, empty_value="")
     preventives = ListField(required=False)
     acutes = ListField(required=False)
-    hr_records = forms.MultipleChoiceField(required=False)
+    hr_records = ListField(required=False)
 
     def clean_preventives(self):
         preventives_raw = self.fields["preventives"].clean(
@@ -51,8 +51,13 @@ class LogEntryForm(forms.Form):
             return Medicine.objects.filter(pk=int(acutes_raw))
         return list()
 
-    def clean_hr_records(self):
-        hr_records = self.cleaned_data.get("hr_records")
-        if not hr_records:
-            return None
-        return list(hr_records)
+    def clean_hr_records(self) -> tuple[int, int, int] | None:
+        systolic = self.data.get("systolic")
+        diastolic = self.data.get("diastolic")
+        hr = self.data.get("hr")
+        if systolic and diastolic and hr:
+            try:
+                return (int(systolic), int(diastolic), int(hr))
+            except ValueError:
+                pass
+        return None

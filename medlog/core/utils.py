@@ -4,6 +4,7 @@ from django.http import HttpRequest
 from django_htmx.middleware import HtmxDetails
 
 from core.forms import LogEntryForm
+from core.models import DayLog
 
 
 class HtmxHttpRequest(HttpRequest):
@@ -20,7 +21,38 @@ def parse_day_log_form(request: HtmxHttpRequest) -> date:
         day_log.notes = form.cleaned_data["notes"]
         day_log.medicines.add(*form.cleaned_data["acutes"])
         day_log.medicines.add(*form.cleaned_data["preventives"])
+        if form.cleaned_data["hr_records"]:
+            populate_hr_records(
+                day_log,
+                requested_date,
+                request.user.pk,
+                *form.cleaned_data["hr_records"],
+            )
         day_log.save()
     else:
         requested_date = date.today()
     return requested_date
+
+
+def populate_hr_records(
+    day_log: DayLog,
+    requested_date: str,
+    user_id: int,
+    systolic: int,
+    diastolic: int,
+    hr: int,
+) -> None:
+    existing_hr_record = day_log.hr_records.first()
+    if existing_hr_record:
+        existing_hr_record.systolic = systolic
+        existing_hr_record.diastolic = diastolic
+        existing_hr_record.hr = hr
+        existing_hr_record.save()
+    else:
+        day_log.hr_records.create(
+            systolic=systolic,
+            diastolic=diastolic,
+            hr=hr,
+            date=requested_date,
+            user_id=user_id,
+        )
