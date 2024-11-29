@@ -336,6 +336,34 @@
         >
       </div>
       {% endfor %} {% endif %}
+      <div class="flex items-center mb-3 mx-1 mt-1">
+        <span
+        id="icon-4"
+        class="text-slate-800 transition-transform duration-300 cursor-pointer"
+        aria-hidden="true"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          class="w-4 h-4 text-gray-900 dark:text-gray-400"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1"
+            d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"
+          />
+        </svg>
+      </span>
+        <label
+          for="acute-checkbox-{{available_acute.id}}"
+          class="ms-2 font-medium text-gray-900 dark:text-gray-400 text-sm cursor-pointer"
+          hx-get="/dashboard" hx-target="#mainDashboardSection" hx-push-url="true" hx-vals='{"medicineModal": "true"}'
+          >{% translate "Add new acute medicine" %}</label
+        >
+      </div>
     </div>
   </div>
 

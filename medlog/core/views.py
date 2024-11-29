@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
 from django_htmx.http import HttpResponseClientRedirect
 
-from core.forms import LogEntryForm, LoginForm
+from core.forms import LogEntryForm, LoginForm, MedicineForm
 from core.models import Medicine
 from core.utils import HtmxHttpRequest, parse_day_log_form
 
@@ -34,6 +34,9 @@ def login_view(request: HtmxHttpRequest) -> HttpResponse:
 @login_required
 def dashboard_main(request: HtmxHttpRequest) -> HttpResponse:
     context = dict()
+    context["show_medicine_modal"] = request.GET.get("medicineModal", "false") == "true"
+    if context["show_medicine_modal"]:
+        context["medicine_form"] = MedicineForm()
     context["day_logs"] = request.user.day_logs.filter(
         date__gte=date.today() - timedelta(days=30)
     )
@@ -71,3 +74,12 @@ def add_log_form(request: HtmxHttpRequest, req_date: str | None = None) -> HttpR
 def logout_view(request: HtmxHttpRequest) -> HttpResponse:
     logout(request)
     return redirect("/")
+
+@require_POST
+@login_required
+def add_medicine_view(request: HtmxHttpRequest) -> HttpResponse:
+    form = MedicineForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return HttpResponseClientRedirect("/dashboard")
+    return render(request, "dashboard/components/addMedicineForm.html", {"medicine_form": form})
