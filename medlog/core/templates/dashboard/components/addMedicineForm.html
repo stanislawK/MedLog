@@ -1,0 +1,42 @@
+{% load i18n %}
+<form hx-post="{% url 'new_medicine' %}">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <p class="my-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+    {% endfor %}
+    {% endif %}
+    <div class="my-4">
+        <label for="{{form.marketing_name.id_for_label}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{form.marketing_name.label}}</label>
+        <input type="text" name="marketing_name" id="marketing_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Paracetamol" />
+        {% if form.marketing_name.errors %}
+        {% for error in form.marketing_name.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="my-4">
+        <label for="{{form.latin_name.id_for_label}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{form.latin_name.label}}</label>
+        <input type="text" name="latin_name" id="latin_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="paracetamolum" required />
+        {% if form.latin_name.errors %}
+        {% for error in form.latin_name.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="mb-4">
+        <label for="{{ form.dose.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{form.dose.label}}</label>
+        <div class="relative flex">
+            <input type="text" name="dose" id="dose" placeholder="400" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+            <button type="button" class="absolute top-0 end-0 my-auto px-3 h-full text-sm font-light bg-gray-50 border border-gray-300 text-gray-900 rounded-e-lg focus:ring-blue-500 focus:border-blue-500  dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" disabled>
+                <p class="w-4 h-4">mg</p>
+            </button>
+            {% if form.dose.errors %}
+            {% for error in form.dose.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <button type="submit" class="my-4 w-full text-white bg-primary-700 hover:bg-primary-800 focus:ring-2 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-custom-gray-200 dark:hover:bg-custom-gray-300 dark:focus:ring-white">{% translate "Add new medicine" %}</button>
+</form>

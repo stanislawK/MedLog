@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load static %}
 <section id="mainDashboardSection" class="bg-white dark:bg-custom-gray-400 overflow-x-hidden h-screen">
+    {% if show_medicine_modal == True and medicine_form %}{% include "dashboard/components/addMedicineModal.html" with form=medicine_form %}{% endif %}
     {% include "dashboard/components/navbar.html" %}
     {% include "dashboard/components/logList.html" %}
     <div hx-trigger="load" hx-get="add-log/">test</div>
