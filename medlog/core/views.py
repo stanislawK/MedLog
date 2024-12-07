@@ -35,6 +35,7 @@ def login_view(request: HtmxHttpRequest) -> HttpResponse:
 def dashboard_main(request: HtmxHttpRequest) -> HttpResponse:
     context = dict()
     context["show_medicine_modal"] = request.GET.get("medicineModal", "false") == "true"
+    context["medicine_type"] = request.GET.get("medType", "acute")
     if context["show_medicine_modal"]:
         context["medicine_form"] = MedicineForm()
     context["day_logs"] = request.user.day_logs.filter(
@@ -75,11 +76,14 @@ def logout_view(request: HtmxHttpRequest) -> HttpResponse:
     logout(request)
     return redirect("/")
 
+
 @require_POST
 @login_required
 def add_medicine_view(request: HtmxHttpRequest) -> HttpResponse:
     form = MedicineForm(request.POST)
     if form.is_valid():
-        form.save()
+        Medicine.objects.create(**form.cleaned_data)
         return HttpResponseClientRedirect("/dashboard")
-    return render(request, "dashboard/components/addMedicineForm.html", {"medicine_form": form})
+    return render(
+        request, "dashboard/components/addMedicineForm.html", {"medicine_form": form}
+    )
