@@ -11,4 +11,12 @@ class MedicineForm(forms.Form):
     type = forms.ChoiceField(
         label="Type", choices=[("preventive", "Preventive"), ("acute", "Acute")]
     )
-    dose_unit = forms.CharField(label="Dose Unit", max_length=100, initial="mg")
+    dose_unit = forms.CharField(
+        label="Dose Unit", max_length=100, initial="mg", required=False
+    )
+
+    def clean_dose_unit(self) -> str:
+        unit = self.cleaned_data["dose_unit"]
+        if unit == "":
+            return "mg"
+        return unit
