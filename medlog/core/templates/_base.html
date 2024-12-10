@@ -21,7 +21,7 @@
     <script src="{% static 'js/htmx.min.js' %}" defer></script>
     {% django_htmx_script %}
   </head>
-  <body>
+  <body hx-boost="true">
     {% block content %}
     {% endblock %}
   </body>

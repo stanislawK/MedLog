@@ -72,6 +72,28 @@ def add_log_form(request: HtmxHttpRequest, req_date: str | None = None) -> HttpR
 
 
 @require_GET
+@login_required
+def logs_history_view(request: HtmxHttpRequest) -> HttpResponse:
+    context = dict()
+    context["day_logs"] = request.user.day_logs.filter(
+        date__gte=date.today() - timedelta(days=30)
+    )
+    return render(request, "dashboard/components/logList.html", context=context)
+
+
+@require_GET
+@login_required
+def logs_stats_view(request: HtmxHttpRequest) -> HttpResponse:
+    return logs_history_view(request)
+
+
+@require_GET
+@login_required
+def visits_view(request: HtmxHttpRequest) -> HttpResponse:
+    return logs_history_view(request)
+
+
+@require_GET
 def logout_view(request: HtmxHttpRequest) -> HttpResponse:
     logout(request)
     return redirect("/")

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-14 00:56+0200\n"
+"POT-Creation-Date: 2024-12-10 23:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,22 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: core/forms/day_log.py:25
+msgid "Id has to be numeric"
+msgstr "Id musi być numerem"
+
+#: core/forms/medicine.py:7
+msgid "Marketing Name"
+msgstr "Nazwa Marketingowa"
+
+#: core/forms/medicine.py:9
+msgid "Latin Name"
+msgstr "Nazwa Łacińska"
+
+#: core/forms/medicine.py:10
+msgid "Dose"
+msgstr "Dawka"
 
 #: core/forms/user.py:22
 msgid "Email"
@@ -58,88 +74,142 @@ msgstr "Zaloguj się do swojego konta"
 msgid "Sign in"
 msgstr "Logowanie"
 
-#: core/templates/dashboard/components/addLogForm.html:4
+#: core/templates/dashboard/components/addLogForm.html:12
 msgid "Choose the date of the log:"
 msgstr "Data wpisu"
 
-#: core/templates/dashboard/components/addLogForm.html:51
+#: core/templates/dashboard/components/addLogForm.html:63
 msgid "Date"
 msgstr "Data wpisu"
 
-#: core/templates/dashboard/components/addLogForm.html:78
+#: core/templates/dashboard/components/addLogForm.html:95
 msgid "Choose strength (0-10):"
 msgstr "Wybierz nasielenie"
 
-#: core/templates/dashboard/components/addLogForm.html:131
+#: core/templates/dashboard/components/addLogForm.html:149
 msgid "Strength"
 msgstr "Nasilenie"
 
-#: core/templates/dashboard/components/addLogForm.html:156
-msgid "Preventive treatment"
-msgstr "Leczenie zapobiegawcze"
-
-#: core/templates/dashboard/components/addLogForm.html:162
-msgid "Preventive medicine"
+#: core/templates/dashboard/components/addLogForm.html:186
+#, fuzzy
+#| msgid "Preventive medicine"
+msgid "Preventitive medicines"
 msgstr "Lek zapobiegawczy"
 
-#: core/templates/dashboard/components/addLogForm.html:166
-#: core/templates/dashboard/components/addLogForm.html:177
-msgid "Add new"
-msgstr "Dodaj nowy"
+#: core/templates/dashboard/components/addLogForm.html:274
+#, fuzzy
+#| msgid "Preventive medicine"
+msgid "Add new preventive medicine"
+msgstr "Lek zapobiegawczy"
 
-#: core/templates/dashboard/components/addLogForm.html:168
-msgid "Acute care"
-msgstr "Leczenie doraźne"
-
-#: core/templates/dashboard/components/addLogForm.html:173
-msgid "Acute medicine"
+#: core/templates/dashboard/components/addLogForm.html:294
+#, fuzzy
+#| msgid "Acute medicine"
+msgid "Acute medicines"
 msgstr "Lek doraźny"
 
-#: core/templates/dashboard/components/addLogForm.html:191
+#: core/templates/dashboard/components/addLogForm.html:382
+#, fuzzy
+#| msgid "Acute medicine"
+msgid "Add new acute medicine"
+msgstr "Lek doraźny"
+
+#: core/templates/dashboard/components/addLogForm.html:399
 msgid "Notes"
 msgstr "Notatki"
 
-#: core/templates/dashboard/components/addLogForm.html:203
+#: core/templates/dashboard/components/addLogForm.html:417
 msgid "Add HR and Blood Pressure"
 msgstr "Dodaj tętno, i ciśnienie krwi"
 
-#: core/templates/dashboard/components/addLogForm.html:242
+#: core/templates/dashboard/components/addLogForm.html:458
+#: core/templates/dashboard/components/addLogForm.html:505
 msgid "Systolic pressure"
 msgstr "Ciś. skurczowe"
 
-#: core/templates/dashboard/components/addLogForm.html:257
+#: core/templates/dashboard/components/addLogForm.html:473
+#: core/templates/dashboard/components/addLogForm.html:519
 msgid "Diastolic pressure"
 msgstr "Ciś. rozkurczowe"
 
-#: core/templates/dashboard/components/addLogForm.html:272
+#: core/templates/dashboard/components/addLogForm.html:488
+#: core/templates/dashboard/components/addLogForm.html:533
 msgid "Heart Rate"
 msgstr "Tętno"
 
-#: core/templates/dashboard/components/addLogForm.html:283
+#: core/templates/dashboard/components/addLogForm.html:546
 msgid "Add Log"
 msgstr "Dodaj Wpis"
 
-#: core/templates/dashboard/components/navbar.html:8
-#: core/templates/dashboard/components/navbar.html:68
+#: core/templates/dashboard/components/addMedicineForm.html:42
+#: core/templates/dashboard/components/addMedicineModal.html:14
+#, fuzzy
+#| msgid "Acute medicine"
+msgid "Add new medicine"
+msgstr "Lek doraźny"
+
+#: core/templates/dashboard/components/logList.html:14
+msgid "My logs"
+msgstr "Moje logi"
+
+#: core/templates/dashboard/components/logList.html:24
+#, fuzzy
+#| msgid "Get started"
+msgid "Select start date"
+msgstr "Rozpocznij"
+
+#: core/templates/dashboard/components/logList.html:50
+#, fuzzy
+#| msgid "Date"
+msgid "Date:"
+msgstr "Data wpisu"
+
+#: core/templates/dashboard/components/logList.html:63
+#, fuzzy
+#| msgid "Strength"
+msgid "Strength:"
+msgstr "Nasilenie"
+
+#: core/templates/dashboard/components/logList.html:76
+#, fuzzy
+#| msgid "Preventive medicine"
+msgid "Preventive medicine:"
+msgstr "Lek zapobiegawczy"
+
+#: core/templates/dashboard/components/logList.html:102
+#, fuzzy
+#| msgid "Acute medicine"
+msgid "Acute medicine:"
+msgstr "Lek doraźny"
+
+#: core/templates/dashboard/components/logList.html:128
+msgid "HR:"
+msgstr "Tętno"
+
+#: core/templates/dashboard/components/navbar.html:9
+#: core/templates/dashboard/components/navbar.html:70
 msgid "New Entry"
 msgstr "Nowy wpis"
 
-#: core/templates/dashboard/components/navbar.html:15
-#: core/templates/dashboard/components/navbar.html:73
+#: core/templates/dashboard/components/navbar.html:16
+#: core/templates/dashboard/components/navbar.html:75
 msgid "History"
 msgstr "Historia"
 
-#: core/templates/dashboard/components/navbar.html:22
-#: core/templates/dashboard/components/navbar.html:78
+#: core/templates/dashboard/components/navbar.html:23
+#: core/templates/dashboard/components/navbar.html:80
 msgid "Stats"
 msgstr "Statystyki"
 
-#: core/templates/dashboard/components/navbar.html:29
-#: core/templates/dashboard/components/navbar.html:83
+#: core/templates/dashboard/components/navbar.html:30
+msgid "Visits"
+msgstr "Wizyty"
+
+#: core/templates/dashboard/components/navbar.html:85
 msgid "Export Logs"
 msgstr "Eksport Logów"
 
-#: core/templates/dashboard/components/navbar.html:88
+#: core/templates/dashboard/components/navbar.html:90
 msgid "Logout"
 msgstr "Wyloguj"
 
@@ -174,3 +244,12 @@ msgstr "Polish"
 #: medlog/settings.py:121
 msgid "English"
 msgstr "English"
+
+#~ msgid "Preventive treatment"
+#~ msgstr "Leczenie zapobiegawcze"
+
+#~ msgid "Add new"
+#~ msgstr "Dodaj nowy"
+
+#~ msgid "Acute care"
+#~ msgstr "Leczenie doraźne"
