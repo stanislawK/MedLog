@@ -1,38 +1,40 @@
 {% load i18n %}
 <nav class="relative px-6 py-6 w-full flex justify-between">
+  {% with request.resolver_match.url_name as curr_url_name %}
   <div
     class="hidden items-center ml-5 xl:ml-16 space-x-10 2xl:space-x-20 uppercase dark:text-white dark:font-light md:flex"
   >
     <!-- Menu-Items -->
     <div class="group cursor-pointer">
-      <a href="" class="tracking-widest">{% translate "New Entry" %}</a>
+      <a href="{% url 'dashboard' %}" class="tracking-widest">{% translate "New Entry" %}</a>
       <!-- Animated underline -->
       <div
-        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100"
+        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100 {% if curr_url_name == 'dashboard' %} opacity-100 {% endif %}"
       ></div>
     </div>
     <div class="group cursor-pointer">
-      <a href="" class="tracking-widest">{% translate "History" %}</a>
+      <a href="{% url 'logs_history' %}" class="tracking-widest">{% translate "History" %}</a>
       <!-- Animated underline -->
       <div
-        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100"
+        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100 {% if curr_url_name == 'logs_history' %} opacity-100 {% endif %}"
       ></div>
     </div>
     <div class="group cursor-pointer">
-      <a href="" class="tracking-widest">{% translate "Stats" %}</a>
+      <a href="{% url 'logs_stats' %}" class="tracking-widest">{% translate "Stats" %}</a>
       <!-- Animated underline -->
       <div
-        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100"
+        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100 {% if curr_url_name == 'logs_stats' %} opacity-100 {% endif %}"
       ></div>
     </div>
     <div class="group cursor-pointer">
-      <a href="" class="tracking-widest">{% translate "Export Logs" %}</a>
+      <a href="{% url 'visits' %}" class="tracking-widest">{% translate "Visits" %}</a>
       <!-- Animated underline -->
       <div
-        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100"
+        class="mx-2 mt-2 duration-500 border-b-2 opacity-0 border-black dark:border-white dark:border-b-[1px] group-hover:opacity-100 {% if curr_url_name == 'visits' %} opacity-100 {% endif %}"
       ></div>
     </div>
   </div>
+  {% endwith %}
   <div class="flex items-center space-x-2 md:hidden">
     {% include "components/switchLanguage.html" %} 
     {% include "components/switchTheme.html" %}
