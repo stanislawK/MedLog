@@ -75,8 +75,26 @@ def add_log_form(request: HtmxHttpRequest, req_date: str | None = None) -> HttpR
 @login_required
 def logs_history_view(request: HtmxHttpRequest) -> HttpResponse:
     context = dict()
+    if start_date := request.GET.get("dateFrom"):
+        try:
+            start_date = date.fromisoformat(start_date)
+        except ValueError:
+            start_date = date.today() - timedelta(days=30)
+    else:
+        start_date = date.today() - timedelta(days=30)
+
+    if end_date := request.GET.get("dateTo"):
+        try:
+            end_date = date.fromisoformat(end_date)
+        except ValueError:
+            end_date = date.today()
+    else:
+        end_date = date.today()
+
+    context["start_date"] = str(start_date.isoformat())
+    context["end_date"] = end_date.isoformat()
     context["day_logs"] = request.user.day_logs.filter(
-        date__gte=date.today() - timedelta(days=30)
+        date__gte=start_date, date__lte=end_date
     )
     return render(request, "dashboard/components/logList.html", context=context)
 
