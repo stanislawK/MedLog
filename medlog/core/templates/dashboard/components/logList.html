@@ -1,40 +1,90 @@
 {% extends "dashboard/main.html" %}
 {% load i18n %}
+{% load static %}
 {% load extra_filters %}
 {% block dashboard_content %}
-<section class="bg-white py-8 antialiased dark:bg-custom-gray-300 md:py-16">
+<section
+  class="bg-white py-8 antialiased dark:bg-custom-gray-300 md:py-16"
+  id="history-section"
+>
   <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <div class="mx-auto max-w-5xl">
-  
       <!-- Logs Header-->
       <div class="gap-4 sm:flex sm:items-center sm:justify-between">
-        <h2
-          class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl"
-        >
-          {% translate "My logs" %}
-        </h2>
-
         <div
-          class="mt-6 gap-4 space-y-4 sm:mt-0 sm:flex sm:items-end sm:justify-end sm:space-y-0"
+          class="mt-6 gap-4 space-y-4 mb-4 sm:mt-0 sm:flex sm:items-end sm:justify-end sm:space-y-0 sm:mb-0"
         >
-          <div>
-            <label
-              for="order-type"
-              class="sr-only mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-              >{% translate "Select start date" %}</label
-            >
-            <select
-              id="order-type"
-              class="block w-full min-w-[8rem] rounded-lg border border-primary-700 text-black hover:bg-primary-700 p-2.5 text-sm focus:border-primary-500 focus:ring-primary-500 dark:border-custom-gray-100 dark:bg-transparent dark:text-white dark:placeholder:text-gray-400 dark:focus:border-white dark:focus:ring-custom-gray-400"
-            >
-              <option selected>2024-10-01</option>
-              <option value="pre-order">2024-10-01</option>
-              <option value="transit">2024-10-01</option>
-              <option value="confirmed">2024-10-01</option>
-              <option value="cancelled">2024-10-01</option>
-            </select>
-          </div>
+          <button
+            class="block w-full min-w-[8rem] rounded-lg border border-primary-700 text-gray-900 hover:bg-primary-700 p-2.5 text-sm focus:border-primary-500 focus:ring-primary-500 dark:border-custom-gray-100 dark:bg-transparent dark:text-white dark:placeholder:text-gray-400 dark:focus:border-white dark:focus:ring-custom-gray-400"
+          >
+            {% translate "Export Logs" %}
+          </button>
         </div>
+        <!-- Datapickers flowbite -->
+        <form method="GET" action="{% url 'logs_history' %}">
+          <div
+            id="date-range-picker"
+            date-rangepicker
+            datepicker-format="yyyy-mm-dd"
+            class="flex items-center"
+          >
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+              >
+                <svg
+                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                  />
+                </svg>
+              </div>
+              <input
+                hx-on:hide="this.form.submit();"
+                id="datepicker-range-start"
+                name="dateFrom"
+                type="text"
+                value="{{start_date}}"
+                class="bg-gray-50 border border-primary-700 text-black text-sm rounded-lg hover:bg-primary-700 focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 dark:bg-transparent dark:border-custom-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-custom-gray-400 dark:focus:border-white cursor-pointer"
+                placeholder="{% translate 'Select date start' %}"
+              />
+            </div>
+            <span class="mx-4 text-gray-500 dark:text-gray-400"
+              >{% translate "to" %}</span
+            >
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+              >
+                <svg
+                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                  />
+                </svg>
+              </div>
+              <input
+                hx-on:hide="this.form.submit();"
+                id="datepicker-range-end"
+                name="dateTo"
+                type="text"
+                value="{{end_date}}"
+                class="bg-gray-50 border border-primary-700 text-black text-sm rounded-lg hover:bg-primary-700 focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 dark:bg-transparent dark:border-custom-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-custom-gray-400 dark:focus:border-white cursor-pointer"
+                placeholder="{% translate 'Select date end' %}"
+              />
+            </div>
+          </div>
+        </form>
       </div>
 
       <!-- Logs Content -->
@@ -88,10 +138,10 @@
               </dd>
               {% empty %}
               <dd
-              class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
-               -
-            </dd>
+                -
+              </dd>
               {% endfor %}
             </dl>
 
@@ -105,7 +155,7 @@
               <dd
                 class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
-              {{ acute_med.marketing_name }}
+                {{ acute_med.marketing_name }}
               </dd>
               <dd
                 class="mt-1.5 text-base font-extralight text-gray-900 dark:text-white"
@@ -114,9 +164,9 @@
               </dd>
               {% empty %}
               <dd
-              class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
+                class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
-              -
+                -
               </dd>
               {% endfor %}
             </dl>
@@ -130,9 +180,7 @@
               <dd
                 class="mt-1.5 text-base font-light text-gray-900 dark:text-white"
               >
-                {% for hr_record in day_log.hr_records.all %}
-                  {{ hr_record }}
-                {% endfor %}
+                {% for hr_record in day_log.hr_records.all %} {{ hr_record }} {% endfor %}
               </dd>
             </dl>
 
@@ -148,11 +196,19 @@
             </div>
           </div>
           {% endfor %}
-
         </div>
       </div>
     </div>
   </div>
 </section>
-<script></script>
+<script src="{% static 'js/flowbite.min.js' %}"></script>
+<script>
+  document.body.addEventListener("htmx:afterOnLoad", (event) => {
+    var datepicker = document.querySelector(".datepicker-main");
+    var datepickerInput = document.querySelector("#date-range-picker");
+    if (datepickerInput && !datepicker) {
+      window.initDatepickers();
+    }
+  });
+</script>
 {% endblock %}
