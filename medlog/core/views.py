@@ -91,7 +91,7 @@ def logs_history_view(request: HtmxHttpRequest) -> HttpResponse:
     else:
         end_date = date.today()
 
-    context["start_date"] = str(start_date.isoformat())
+    context["start_date"] = start_date.isoformat()
     context["end_date"] = end_date.isoformat()
     context["day_logs"] = request.user.day_logs.filter(
         date__gte=start_date, date__lte=end_date

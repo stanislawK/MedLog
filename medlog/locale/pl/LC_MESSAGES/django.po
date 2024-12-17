@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-10 23:40+0100\n"
+"POT-Creation-Date: 2024-12-14 19:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,41 +148,52 @@ msgstr "Dodaj Wpis"
 msgid "Add new medicine"
 msgstr "Lek doraźny"
 
-#: core/templates/dashboard/components/logList.html:14
-msgid "My logs"
-msgstr "Moje logi"
+#: core/templates/dashboard/components/logList.html:20
+#: core/templates/dashboard/components/navbar.html:85
+msgid "Export Logs"
+msgstr "Eksport Logów"
 
-#: core/templates/dashboard/components/logList.html:24
+#: core/templates/dashboard/components/logList.html:54
 #, fuzzy
 #| msgid "Get started"
-msgid "Select start date"
+msgid "Select date start"
 msgstr "Rozpocznij"
 
-#: core/templates/dashboard/components/logList.html:50
+#: core/templates/dashboard/components/logList.html:58
+msgid "to"
+msgstr "do"
+
+#: core/templates/dashboard/components/logList.html:83
+#, fuzzy
+#| msgid "Get started"
+msgid "Select date end"
+msgstr "Rozpocznij"
+
+#: core/templates/dashboard/components/logList.html:100
 #, fuzzy
 #| msgid "Date"
 msgid "Date:"
 msgstr "Data wpisu"
 
-#: core/templates/dashboard/components/logList.html:63
+#: core/templates/dashboard/components/logList.html:113
 #, fuzzy
 #| msgid "Strength"
 msgid "Strength:"
 msgstr "Nasilenie"
 
-#: core/templates/dashboard/components/logList.html:76
+#: core/templates/dashboard/components/logList.html:126
 #, fuzzy
 #| msgid "Preventive medicine"
 msgid "Preventive medicine:"
 msgstr "Lek zapobiegawczy"
 
-#: core/templates/dashboard/components/logList.html:102
+#: core/templates/dashboard/components/logList.html:152
 #, fuzzy
 #| msgid "Acute medicine"
 msgid "Acute medicine:"
 msgstr "Lek doraźny"
 
-#: core/templates/dashboard/components/logList.html:128
+#: core/templates/dashboard/components/logList.html:178
 msgid "HR:"
 msgstr "Tętno"
 
@@ -204,10 +215,6 @@ msgstr "Statystyki"
 #: core/templates/dashboard/components/navbar.html:30
 msgid "Visits"
 msgstr "Wizyty"
-
-#: core/templates/dashboard/components/navbar.html:85
-msgid "Export Logs"
-msgstr "Eksport Logów"
 
 #: core/templates/dashboard/components/navbar.html:90
 msgid "Logout"
@@ -244,6 +251,9 @@ msgstr "Polish"
 #: medlog/settings.py:121
 msgid "English"
 msgstr "English"
+
+#~ msgid "My logs"
+#~ msgstr "Moje logi"
 
 #~ msgid "Preventive treatment"
 #~ msgstr "Leczenie zapobiegawcze"

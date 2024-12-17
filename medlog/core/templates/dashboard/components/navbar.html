@@ -66,22 +66,22 @@
     class="fixed inset-0 z-20 hidden h-full min-h-screen w-full flex-col items-center divide-y divide-gray-500 self-end bg-custom-gray-400 px-6 py-1 pb-4 pt-24 uppercase tracking-widest text-white opacity-90"
   >
     <div class="w-full py-4 text-center">
-      <a href="#features" class="block hover:text-primary-700"
+      <a href="{% url 'dashboard' %}" class="block hover:text-primary-700"
         >{% translate "New Entry" %}</a
       >
     </div>
     <div class="w-full py-4 text-center">
-      <a href="#download" class="block hover:text-text-primary-700"
+      <a href="{% url 'logs_history' %}" class="block hover:text-text-primary-700"
         >{% translate "History" %}</a
       >
     </div>
     <div class="w-full py-4 text-center">
-      <a href="#faq" class="block hover:text-text-primary-700"
+      <a href="{% url 'logs_stats' %}" class="block hover:text-text-primary-700"
         >{% translate "Stats" %}</a
       >
     </div>
     <div class="w-full py-4 text-center">
-      <a href="" class="block hover:text-text-primary-700"
+      <a href="{% url 'visits' %}" class="block hover:text-text-primary-700"
         >{% translate "Export Logs" %}</a
       >
     </div>
