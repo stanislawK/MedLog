@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.http import HttpRequest
+from django.urls import Resolver404, resolve
 from django_htmx.middleware import HtmxDetails
 
 from core.forms import LogEntryForm
@@ -56,3 +57,13 @@ def populate_hr_records(
             date=requested_date,
             user_id=user_id,
         )
+
+
+def is_log_history_url(url: str) -> bool:
+    if "?" in url:
+        url = url.split("?")[0]
+    print(url)
+    try:
+        return resolve(url).url_name == "logs_history"
+    except Resolver404:
+        return False

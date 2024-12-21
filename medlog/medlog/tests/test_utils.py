@@ -1,6 +1,6 @@
 import pytest
 from core.models import Medicine, User
-from core.utils import parse_day_log_form, populate_hr_records
+from core.utils import is_log_history_url, parse_day_log_form, populate_hr_records
 from django.test import RequestFactory
 
 HR_DATA = (120, 70, 55)
@@ -91,3 +91,12 @@ def test_populate_hr_records(user: User) -> None:
     assert hr_record.systolic == new_data[0]
     assert hr_record.diastolic == new_data[1]
     assert hr_record.hr == new_data[2]
+
+
+def test_is_log_history_url() -> None:
+    assert is_log_history_url("/dashboard/logs-history/")
+    assert not is_log_history_url("/dashboard/")
+    assert is_log_history_url(
+        "/dashboard/logs-history/?dateFrom=2023-01-01&dateTo=2050-01-01"
+    )
+    assert not is_log_history_url("/dashboard/add-log/")
