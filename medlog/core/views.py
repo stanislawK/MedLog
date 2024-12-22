@@ -9,7 +9,7 @@ from django_htmx.http import HttpResponseClientRedirect
 
 from core.forms import LogEntryForm, LoginForm, MedicineForm
 from core.models import Medicine
-from core.utils import HtmxHttpRequest, parse_day_log_form
+from core.utils import HtmxHttpRequest, is_log_history_url, parse_day_log_form
 
 
 @require_GET
@@ -68,6 +68,17 @@ def add_log_form(request: HtmxHttpRequest, req_date: str | None = None) -> HttpR
     previous_day = requested_date - timedelta(days=1)
     context["next_day"] = next_day.isoformat()
     context["previous_day"] = previous_day.isoformat()
+
+    # Handling for inline editing in the list
+    if request.htmx and is_log_history_url(request.htmx.current_url_abs_path):
+        context["edit"] = True
+
+    if context.get("edit") and request.method == "POST":
+        return render(
+            request,
+            "dashboard/components/logListRow.html",
+            context={"day_log": context["current_entry"]},
+        )
     return render(request, "dashboard/components/addLogForm.html", context=context)
 
 

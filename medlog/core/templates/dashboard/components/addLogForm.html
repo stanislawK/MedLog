@@ -2,16 +2,19 @@
 <form
   class="max-w-md mx-auto px-4 my-4"
   id="add-log-form"
-  hx-post="add-log/"
+  hx-post="{% url 'add-log' %}"
   hx-swap="outerHTML"
+  {% if edit %}
+  hx-target="#log-list-row-{{current_entry.pk}}"
+  {% endif %}
 >
   {% csrf_token %}
 
-  <!-- Strength input -->
+  <!-- Select date -->
   <label for="log-date-input" class="sr-only"
     >{% translate "Choose the date of the log:" %}</label
   >
-  <div class="relative flex items-center mb-4">
+  <div class="relative flex items-center mb-4 transition-all">
     <button
       type="button"
       id="date-back-btn"
@@ -543,7 +546,11 @@
     type="submit"
     class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full marker:px-5 py-4 text-center dark:bg-custom-gray-200 dark:hover:bg-custom-gray-300 dark:focus:ring-white"
   >
+    {% if edit %}
+    {% translate "Edit Log" %}
+    {% else %}
     {% translate "Add Log" %}
+    {% endif %}
   </button>
 </form>
 <script>
