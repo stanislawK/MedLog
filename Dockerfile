@@ -11,16 +11,15 @@ FROM base AS builder
 
 RUN apt-get update \
     && apt-get install -y \
-    curl gcc libc-dev musl-dev libpq-dev \
-    && apt-get autoremove
+    curl gcc libc-dev musl-dev libpq-dev
 
 ADD --chmod=755 https://astral.sh/uv/install.sh /install.sh
 RUN /install.sh && rm /install.sh
 
 COPY ./requirements.txt /medlog/
 WORKDIR /medlog
-RUN /root/.cargo/bin/uv venv /opt/venv && \
-    /root/.cargo/bin/uv pip install --no-cache -r requirements.txt
+RUN /root/.local/bin/uv venv /opt/venv && \
+    /root/.local/bin/uv pip install --no-cache -r requirements.txt
 
 # Final stage to create the runnable image with minimal size
 FROM python:3.12-slim-bookworm AS final
@@ -29,6 +28,11 @@ COPY --from=builder /opt/venv /opt/venv
 
 COPY run-backend.sh .
 RUN chmod +x /run-backend.sh
+
+RUN apt-get update \
+    && apt-get install -y \
+    libglib2.0-dev libpango-1.0-0 libpangoft2-1.0-0 \
+    && apt-get update
 
 COPY ./medlog /medlog
 
