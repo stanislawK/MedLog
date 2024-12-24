@@ -2,10 +2,12 @@ from datetime import date, timedelta
 
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import FileResponse, HttpResponse
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
 from django_htmx.http import HttpResponseClientRedirect
+from weasyprint import HTML
 
 from core.forms import LogEntryForm, LoginForm, MedicineForm
 from core.models import Medicine
@@ -108,6 +110,40 @@ def logs_history_view(request: HtmxHttpRequest) -> HttpResponse:
         date__gte=start_date, date__lte=end_date
     )
     return render(request, "dashboard/components/logList.html", context=context)
+
+
+@require_GET
+@login_required
+def export_report_view(request: HtmxHttpRequest) -> FileResponse:
+    context = dict()
+    if start_date := request.GET.get("dateFrom"):
+        try:
+            start_date = date.fromisoformat(start_date)
+        except ValueError:
+            start_date = date.today() - timedelta(days=30)
+    else:
+        start_date = date.today() - timedelta(days=30)
+
+    if end_date := request.GET.get("dateTo"):
+        try:
+            end_date = date.fromisoformat(end_date)
+        except ValueError:
+            end_date = date.today()
+    else:
+        end_date = date.today()
+
+    context["start_date"] = start_date.isoformat()
+    context["end_date"] = end_date.isoformat()
+    context["day_logs"] = request.user.day_logs.filter(
+        date__gte=start_date, date__lte=end_date
+    )
+    str_template = render_to_string("pdfReport.html", context=context)
+    pdf_report = HTML(string=str_template).write_pdf()
+    response = HttpResponse(pdf_report, content_type="application/pdf")
+    response["Content-Disposition"] = (
+        f'attachment; filename="ml_report_{start_date.isoformat()}-{end_date.isoformat()}.pdf"'
+    )
+    return response
 
 
 @require_GET

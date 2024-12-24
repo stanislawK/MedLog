@@ -86,6 +86,16 @@ def test_add_medicines(authenticated_client: Client) -> None:
 
 @pytest.mark.django_db
 def test_logs_history(authenticated_client: Client, user: User) -> None:
+    """
+    Tests the logs history view.
+
+    Checks that:
+    - POST method is not allowed
+    - Default view returns all logs
+    - Wider range returns all logs
+    - Narrower range returns a subset of logs
+    - Older range returns no logs
+    """
     # POST method not allowed
     response = authenticated_client.post("/dashboard/logs-history/")
     assert response.status_code == 405
@@ -119,3 +129,42 @@ def test_logs_history(authenticated_client: Client, user: User) -> None:
         f"/dashboard/logs-history/?dateTo={thirty_days_ago.isoformat()}&dateFrom={sixty_days_ago.isoformat()}"
     )
     assert response.context["day_logs"].count() == 0
+
+
+@pytest.mark.django_db
+def test_export_report_view(authenticated_client: Client, user: User) -> None:
+    # POST method not allowed
+    response = authenticated_client.post("/dashboard/export-report/")
+    assert response.status_code == 405
+
+    end_date = date.today()
+    for i in range(1, 11):
+        DayLog.objects.create(date=end_date - timedelta(days=i), strength=10, user=user)
+
+    # Default view - should return all logs
+    response = authenticated_client.get("/dashboard/export-report/")
+    assert response.status_code == 200
+
+    # Response should be a PDF
+    assert response.headers["Content-Type"] == "application/pdf"
+
+    # Wider range should return all logs
+    response = authenticated_client.get(
+        "/dashboard/export-report/?dateFrom=2023-01-01&dateTo=2050-01-01"
+    )
+    assert response.status_code == 200
+
+    # Narrower range should return 5 logs
+    five_days_ago = end_date - timedelta(days=5)
+    response = authenticated_client.get(
+        f"/dashboard/export-report/?dateFrom={five_days_ago.isoformat()}&dateTo={end_date.isoformat()}"
+    )
+    assert response.status_code == 200
+
+    # Older range should return 0 logs
+    sixty_days_ago = end_date - timedelta(days=60)
+    thirty_days_ago = end_date - timedelta(days=30)
+    response = authenticated_client.get(
+        f"/dashboard/export-report/?dateTo={thirty_days_ago.isoformat()}&dateFrom={sixty_days_ago.isoformat()}"
+    )
+    assert response.status_code == 200

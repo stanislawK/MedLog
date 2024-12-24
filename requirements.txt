@@ -4,6 +4,12 @@ asgiref==3.8.1
     # via
     #   django
     #   django-htmx
+brotli==1.1.0
+    # via fonttools
+cffi==1.17.1
+    # via weasyprint
+cssselect2==0.7.0
+    # via weasyprint
 django==5.1
     # via
     #   -r requirements.in
@@ -18,6 +24,8 @@ django-htmx==1.18.0
     # via -r requirements.in
 exceptiongroup==1.2.1
     # via pytest
+fonttools==4.55.3
+    # via weasyprint
 gunicorn==22.0.0
     # via -r requirements.in
 iniconfig==2.0.0
@@ -26,6 +34,8 @@ packaging==24.1
     # via
     #   gunicorn
     #   pytest
+pillow==11.0.0
+    # via weasyprint
 pluggy==1.5.0
     # via pytest
 psycopg==3.1.19
@@ -34,6 +44,12 @@ psycopg-binary==3.1.19
     # via psycopg
 psycopg-pool==3.2.2
     # via psycopg
+pycparser==2.22
+    # via cffi
+pydyf==0.11.0
+    # via weasyprint
+pyphen==0.17.0
+    # via weasyprint
 pytest==8.2.2
     # via
     #   -r requirements.in
@@ -51,6 +67,12 @@ ruff==0.5.0
     # via -r requirements.in
 sqlparse==0.5.0
     # via django
+tinycss2==1.4.0
+    # via
+    #   cssselect2
+    #   weasyprint
+tinyhtml5==2.0.0
+    # via weasyprint
 tomli==2.0.1
     # via pytest
 typing-extensions==4.12.2
@@ -58,3 +80,12 @@ typing-extensions==4.12.2
     #   asgiref
     #   psycopg
     #   psycopg-pool
+weasyprint==63.1
+    # via -r requirements.in
+webencodings==0.5.1
+    # via
+    #   cssselect2
+    #   tinycss2
+    #   tinyhtml5
+zopfli==0.2.3.post1
+    # via fonttools
