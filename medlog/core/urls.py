@@ -13,4 +13,5 @@ urlpatterns = [
     path("dashboard/visits/", views.visits_view, name="visits"),
     path("dashboard/logs-history/", views.logs_history_view, name="logs_history"),
     path("dashboard/logs-stats/", views.logs_stats_view, name="logs_stats"),
+    path("dashboard/export-report/", views.export_report_view, name="export_report"),
 ]
