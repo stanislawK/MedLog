@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Any, Generator
 
 from django.http import HttpRequest
 from django.urls import Resolver404, resolve
@@ -67,3 +68,8 @@ def is_log_history_url(url: str) -> bool:
         return resolve(url).url_name == "logs_history"
     except Resolver404:
         return False
+
+
+def chunked_list(list_data: list[Any], chunk_size: int) -> Generator[Any, None, None]:
+    for i in range(0, len(list_data), chunk_size):
+        yield list_data[i : i + chunk_size]
