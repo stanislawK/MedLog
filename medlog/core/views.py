@@ -146,6 +146,12 @@ def export_report_view(request: HtmxHttpRequest) -> FileResponse:
     for chunk in chunked_list(all_day_logs, 31):
         str_template = render_to_string("pdfReport.html", context={"day_logs": chunk})
         documents.append(HTML(string=str_template).render())
+
+    # If there are no logs in the range, return an empty report
+    if not documents:
+        str_template = render_to_string("pdfReport.html", context={"day_logs": []})
+        documents.append(HTML(string=str_template).render())
+
     all_pages = [page for document in documents for page in document.pages]
     pdf_report = documents[0].copy(all_pages).write_pdf()
     response = HttpResponse(pdf_report, content_type="application/pdf")
@@ -164,7 +170,29 @@ def logs_stats_view(request: HtmxHttpRequest) -> HttpResponse:
 @require_GET
 @login_required
 def visits_view(request: HtmxHttpRequest) -> HttpResponse:
-    return logs_history_view(request)
+    context = dict()
+    if start_date := request.GET.get("dateFrom"):
+        try:
+            start_date = date.fromisoformat(start_date)
+        except ValueError:
+            start_date = date.today() - timedelta(days=30)
+    else:
+        start_date = date.today() - timedelta(days=30)
+
+    if end_date := request.GET.get("dateTo"):
+        try:
+            end_date = date.fromisoformat(end_date)
+        except ValueError:
+            end_date = date.today() + timedelta(days=90)
+    else:
+        end_date = date.today() + timedelta(days=90)
+
+    context["start_date"] = start_date.isoformat()
+    context["end_date"] = end_date.isoformat()
+    context["visits"] = request.user.visits.filter(
+        date__gte=start_date, date__lte=end_date
+    )
+    return render(request, "dashboard/components/visitList.html", context=context)
 
 
 @require_GET

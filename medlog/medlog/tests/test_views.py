@@ -4,6 +4,7 @@ import pytest
 from core.models.day_log import DayLog
 from core.models.medicine import Medicine
 from core.models.user import User
+from core.models.visit import Visit
 from django.test import Client
 
 
@@ -144,6 +145,7 @@ def test_export_report_view(authenticated_client: Client, user: User) -> None:
     # Default view - should return all logs
     response = authenticated_client.get("/dashboard/export-report/")
     assert response.status_code == 200
+    assert len(response.context["day_logs"]) == 10
 
     # Response should be a PDF
     assert response.headers["Content-Type"] == "application/pdf"
@@ -153,6 +155,7 @@ def test_export_report_view(authenticated_client: Client, user: User) -> None:
         "/dashboard/export-report/?dateFrom=2023-01-01&dateTo=2050-01-01"
     )
     assert response.status_code == 200
+    assert len(response.context["day_logs"]) == 10
 
     # Narrower range should return 5 logs
     five_days_ago = end_date - timedelta(days=5)
@@ -160,6 +163,7 @@ def test_export_report_view(authenticated_client: Client, user: User) -> None:
         f"/dashboard/export-report/?dateFrom={five_days_ago.isoformat()}&dateTo={end_date.isoformat()}"
     )
     assert response.status_code == 200
+    assert len(response.context["day_logs"]) == 5
 
     # Older range should return 0 logs
     sixty_days_ago = end_date - timedelta(days=60)
@@ -168,3 +172,43 @@ def test_export_report_view(authenticated_client: Client, user: User) -> None:
         f"/dashboard/export-report/?dateTo={thirty_days_ago.isoformat()}&dateFrom={sixty_days_ago.isoformat()}"
     )
     assert response.status_code == 200
+    assert len(response.context["day_logs"]) == 0
+
+
+@pytest.mark.django_db
+def test_visits_view(authenticated_client: Client, user: User) -> None:
+    # POST method not allowed
+    response = authenticated_client.post("/dashboard/visits/")
+    assert response.status_code == 405
+
+    for i in range(1, 6):
+        # Past visits
+        Visit.objects.create(date=date.today() - timedelta(days=i), user=user)
+        # Future visits
+        Visit.objects.create(date=date.today() + timedelta(days=i), user=user)
+
+    # Default view - should return all views
+    response = authenticated_client.get("/dashboard/visits/")
+    assert response.status_code == 200
+    assert response.context["visits"].count() == 10
+
+    # Wider range should return all views
+    response = authenticated_client.get(
+        "/dashboard/visits/?dateFrom=2023-01-01&dateTo=2050-01-01"
+    )
+    assert response.context["visits"].count() == 10
+
+    # Narrower range should return 5 views
+    five_days_ago = date.today() - timedelta(days=5)
+    response = authenticated_client.get(
+        f"/dashboard/visits/?dateFrom={five_days_ago.isoformat()}&dateTo={date.today().isoformat()}"
+    )
+    assert response.context["visits"].count() == 5
+
+    # Older range should return 0 views
+    sixty_days_ago = date.today() - timedelta(days=60)
+    thirty_days_ago = date.today() - timedelta(days=30)
+    response = authenticated_client.get(
+        f"/dashboard/visits/?dateTo={thirty_days_ago.isoformat()}&dateFrom={sixty_days_ago.isoformat()}"
+    )
+    assert response.context["visits"].count() == 0

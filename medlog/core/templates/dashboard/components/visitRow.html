@@ -1,0 +1,63 @@
+{% load extra_filters %}
+{% load i18n %}
+<!-- Wrap the whole row in a div that will be replaced by htmx after the edit -->
+<div id="visit-row-{{visit.pk}}">
+    <div class="flex flex-wrap items-center gap-y-4 py-6">
+        <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+        <dt
+            class="text-base font-medium text-gray-500 dark:text-gray-400"
+        >
+            {% translate "Date:" %}
+        </dt>
+        <dd
+            class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
+        >
+            <a href="#" class="hover:underline">{{ visit }}</a>
+        </dd>
+        </dl>
+
+        <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+        <dt
+            class="text-base font-medium text-gray-500 dark:text-gray-400"
+        >
+            {% translate "Planned:" %}
+        </dt>
+        <dd
+            class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
+        >
+            {{ visit.planned }}
+        </dd>
+        </dl>
+
+        <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+            <dt
+                class="text-base font-medium text-gray-500 dark:text-gray-400"
+            >
+                {% translate "Specialist:" %}
+            </dt>
+            <dd
+                class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
+            >
+                {{ visit.specialist }}
+            </dd>
+        </dl>
+
+        <div
+        class="w-full grid sm:grid-cols-2 lg:flex lg:w-24 lg:items-center lg:justify-end gap-4"
+        >
+        <!-- Make it work -->
+        <button
+            type="button"
+            hx-target="#edit-log-from-list-{{visit.pk}}"
+            hx-get="{% url 'add-log' req_date=visit %}"
+            hx-swap="innerHTML transition:true show:top"
+            class="w-full rounded-lg border border-primary-700 px-8 py-2 text-center text-sm font-medium text-black hover:bg-primary-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-custom-gray-100 dark:text-white dark:hover:bg-custom-gray-100 dark:hover:text-white dark:focus:ring-custom-gray-400 lg:w-auto"
+        >
+            Delete
+        </button>
+        </div>
+    </div>
+    <!-- Edit log form placeholder -->
+    <p>{{current_entry}}</p>
+    <div id="edit-log-from-list-{{day_log.pk}}" class="hidden" hx-on="htmx:beforeSwap: this.classList.remove('hidden')"></div>
+</div>
