@@ -1364,10 +1364,6 @@ input:checked + .toggle-bg {
   height: 1.5rem;
 }
 
-.h-7 {
-  height: 1.75rem;
-}
-
 .h-8 {
   height: 2rem;
 }
@@ -1438,10 +1434,6 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
-}
-
-.min-w-\[10rem\] {
-  min-width: 10rem;
 }
 
 .min-w-\[8rem\] {
@@ -1953,6 +1945,10 @@ input:checked + .toggle-bg {
   padding-bottom: 1.5rem;
 }
 
+.pr-5 {
+  padding-right: 1.25rem;
+}
+
 .ps-10 {
   padding-inline-start: 2.5rem;
 }
@@ -1967,14 +1963,6 @@ input:checked + .toggle-bg {
 
 .pt-24 {
   padding-top: 6rem;
-}
-
-.pr-3 {
-  padding-right: 0.75rem;
-}
-
-.pr-5 {
-  padding-right: 1.25rem;
 }
 
 .text-center {
@@ -2853,6 +2841,38 @@ input:checked + .toggle-bg {
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
+  .sm\:pr-6 {
+    padding-right: 1.5rem;
+  }
+
+  .sm\:pr-24 {
+    padding-right: 6rem;
+  }
+
+  .sm\:pr-40 {
+    padding-right: 10rem;
+  }
+
+  .sm\:pr-52 {
+    padding-right: 13rem;
+  }
+
+  .sm\:pr-96 {
+    padding-right: 24rem;
+  }
+
+  .sm\:pr-\[25rem\] {
+    padding-right: 25rem;
+  }
+
+  .sm\:pr-\[26rem\] {
+    padding-right: 26rem;
+  }
+
+  .sm\:pr-\[25\.5rem\] {
+    padding-right: 25.5rem;
   }
 
   .sm\:align-middle {

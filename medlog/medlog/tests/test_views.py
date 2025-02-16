@@ -191,12 +191,16 @@ def test_visits_view(authenticated_client: Client, user: User) -> None:
     response = authenticated_client.get("/dashboard/visits/")
     assert response.status_code == 200
     assert response.context["visits"].count() == 10
+    assert response.context["next_visit"] is not None
+    assert response.context["days_to_next_visit"] == 1
 
     # Wider range should return all views
     response = authenticated_client.get(
         "/dashboard/visits/?dateFrom=2023-01-01&dateTo=2050-01-01"
     )
     assert response.context["visits"].count() == 10
+    assert response.context["next_visit"] is not None
+    assert response.context["days_to_next_visit"] == 1
 
     # Narrower range should return 5 views
     five_days_ago = date.today() - timedelta(days=5)
@@ -212,3 +216,17 @@ def test_visits_view(authenticated_client: Client, user: User) -> None:
         f"/dashboard/visits/?dateTo={thirty_days_ago.isoformat()}&dateFrom={sixty_days_ago.isoformat()}"
     )
     assert response.context["visits"].count() == 0
+    assert response.context["next_visit"] is not None
+    assert response.context["days_to_next_visit"] == 1
+
+
+@pytest.mark.django_db
+def test_visit_view_without_next_visit(
+    authenticated_client: Client, user: User
+) -> None:
+    Visit.objects.create(date=date.today() - timedelta(days=5), user=user)
+    response = authenticated_client.get("/dashboard/visits/")
+    assert response.status_code == 200
+    assert response.context["visits"].count() == 1
+    assert response.context["next_visit"] is None
+    assert response.context["days_to_next_visit"] is None

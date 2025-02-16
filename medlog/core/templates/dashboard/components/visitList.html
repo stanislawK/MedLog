@@ -1,6 +1,6 @@
 {% extends "dashboard/main.html" %}
-{% load i18n %} 
-{% load static %} 
+{% load i18n %}
+{% load static %}
 {% block dashboard_content %}
 <section
   class="bg-white py-8 antialiased dark:bg-custom-gray-300 md:py-16"
@@ -112,7 +112,35 @@
       </div>
 
       <!-- Visits Content -->
+
+      <!-- Next visit -->
+      {% if next_visit %}
       <div class="mt-6 flow-root sm:mt-8">
+        <div class="flex flex-wrap items-start gap-y-4 py-6 sm:pr-[25.5rem]">
+          <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+            <dt class="text-base font-medium text-gray-500 dark:text-gray-400">
+              {% translate "Next visit:" %}
+            </dt>
+            <dd
+              class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
+            >
+              <a href="#" class="hover:underline">{{ next_visit }}</a>
+            </dd>
+          </dl>
+
+          <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 self-start">
+            <dt class="text-base font-medium text-gray-500 dark:text-gray-400">
+              {% translate "Days to next visit:" %}
+            </dt>
+            <dd
+              class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
+            >
+              {{ days_to_next_visit }} {% translate "days" %}
+            </dd>
+          </dl>
+        </div>
+        {% endif %}
+
         <div class="divide-y divide-gray-200 dark:divide-gray-400">
           <!-- Visits row -->
           {% for visit in visits %} {% include "./visitRow.html"%} {% endfor %}

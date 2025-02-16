@@ -10,7 +10,7 @@ from django_htmx.http import HttpResponseClientRedirect
 from weasyprint import HTML
 
 from core.forms import LogEntryForm, LoginForm, MedicineForm
-from core.models import Medicine
+from core.models import Medicine, Visit
 from core.utils import (
     HtmxHttpRequest,
     chunked_list,
@@ -192,6 +192,8 @@ def visits_view(request: HtmxHttpRequest) -> HttpResponse:
     context["visits"] = request.user.visits.filter(
         date__gte=start_date, date__lte=end_date
     )
+    context["next_visit"] = Visit.next_visit(request.user)
+    context["days_to_next_visit"] = Visit.days_to_next_visit(context["next_visit"])
     return render(request, "dashboard/components/visitList.html", context=context)
 
 
