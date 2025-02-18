@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
 from django_htmx.http import HttpResponseClientRedirect
@@ -195,6 +195,16 @@ def visits_view(request: HtmxHttpRequest) -> HttpResponse:
     context["next_visit"] = Visit.next_visit(request.user)
     context["days_to_next_visit"] = Visit.days_to_next_visit(context["next_visit"])
     return render(request, "dashboard/components/visitList.html", context=context)
+
+
+@require_http_methods(["DELETE"])
+@login_required
+def delete_visit_view(request: HtmxHttpRequest, visit_id: int) -> HttpResponse:
+    visit = get_object_or_404(Visit, pk=visit_id)
+    if visit.user != request.user:
+        return HttpResponse(status=403)
+    visit.delete()
+    return HttpResponse(status=200)
 
 
 @require_GET

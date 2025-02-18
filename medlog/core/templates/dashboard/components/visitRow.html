@@ -47,10 +47,9 @@
         >
         <!-- Make it work -->
         <button
-            type="button"
-            hx-target="#edit-log-from-list-{{visit.pk}}"
-            hx-get="{% url 'add-log' req_date=visit %}"
-            hx-swap="innerHTML transition:true show:top"
+            hx-target="#visit-row-{{visit.pk}}"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-delete="{% url 'delete_visit' visit_id=visit.pk %}"
             class="w-full rounded-lg border border-primary-700 px-8 py-2 text-center text-sm font-medium text-black hover:bg-primary-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-custom-gray-100 dark:text-white dark:hover:bg-custom-gray-100 dark:hover:text-white dark:focus:ring-custom-gray-400 lg:w-auto"
         >
             Delete
