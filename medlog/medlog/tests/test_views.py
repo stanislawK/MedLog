@@ -230,3 +230,34 @@ def test_visit_view_without_next_visit(
     assert response.context["visits"].count() == 1
     assert response.context["next_visit"] is None
     assert response.context["days_to_next_visit"] is None
+
+
+@pytest.mark.django_db
+def test_delete_visit_view(authenticated_client: Client, user: User) -> None:
+    visit = Visit.objects.create(date=date.today() - timedelta(days=5), user=user)
+    response = authenticated_client.delete(f"/dashboard/visits/{visit.id}/")
+    assert response.status_code == 200
+
+    response = authenticated_client.delete(f"/dashboard/visits/{visit.id}/")
+    assert response.status_code == 404
+
+    # Visit should be deleted
+    assert Visit.objects.filter(id=visit.id).count() == 0
+
+    # Visit from the other user should not be deleted
+    other_user = User.objects.create_user(
+        email="other_user@test.com", password="password"
+    )
+    new_visit = Visit.objects.create(
+        date=date.today() - timedelta(days=5), user=other_user
+    )
+    response = authenticated_client.delete(f"/dashboard/visits/{new_visit.id}/")
+    assert response.status_code == 403
+
+    # Post method not allowed
+    response = authenticated_client.post(f"/dashboard/visits/{new_visit.id}/")
+    assert response.status_code == 405
+
+    # Get method not allowed
+    response = authenticated_client.get(f"/dashboard/visits/{new_visit.id}/")
+    assert response.status_code == 405
