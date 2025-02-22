@@ -1,5 +1,5 @@
 import pytest
-from core.forms import LogEntryForm, MedicineForm
+from core.forms import LogEntryForm, MedicineForm, VisitForm
 from core.models import Medicine
 from django.http import QueryDict
 
@@ -41,4 +41,12 @@ def test_medicine_form() -> None:
         "marketing_name=test&latin_name=test&dose=10&dose_unit=mg&type=test"
     )
     incorrect_form = MedicineForm(data=QueryDict(raw_incorrect_data))
+    assert not incorrect_form.is_valid()
+
+
+def test_visit_form() -> None:
+    correct_form = VisitForm(data={"specialist": "test", "date": "2023-10-20"})
+    assert correct_form.is_valid()
+
+    incorrect_form = VisitForm({"specialist": "test"})
     assert not incorrect_form.is_valid()

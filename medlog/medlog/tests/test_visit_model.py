@@ -15,7 +15,6 @@ from core.models.visit import Visit
             },
             {
                 "date": date.today() - timedelta(days=10),
-                "planned": False,
             },
             id="Date in the past",
         ),
@@ -25,7 +24,6 @@ from core.models.visit import Visit
             },
             {
                 "date": date.today() + timedelta(days=10),
-                "planned": True,
             },
             id="Date in the future",
         ),
@@ -33,7 +31,6 @@ from core.models.visit import Visit
             {"date": date.today() + timedelta(days=10), "specialist": "test"},
             {
                 "date": date.today() + timedelta(days=10),
-                "planned": True,
                 "specialist": "test",
             },
             id="With specialist",
@@ -41,22 +38,18 @@ from core.models.visit import Visit
         pytest.param(
             {
                 "date": date.today() - timedelta(days=10),
-                "planned": True,
             },
             {
                 "date": date.today() - timedelta(days=10),
-                "planned": True,
             },
             id="Override planned to True",
         ),
         pytest.param(
             {
                 "date": date.today() + timedelta(days=10),
-                "planned": False,
             },
             {
                 "date": date.today() + timedelta(days=10),
-                "planned": False,
             },
             id="Override planned to False",
         ),
