@@ -34,11 +34,13 @@
                 />
               </svg>
             </div>
-
             <a
               class="bg-gray-50 border border-primary-700 text-black text-sm rounded-lg hover:bg-primary-700 focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 pr-5 dark:bg-transparent dark:border-custom-gray-100 dark:placeholder-gray-400 dark:text-white dark:focus:ring-custom-gray-400 dark:focus:border-white cursor-pointer"
-              href="{% url 'export_report' %}?dateFrom={{start_date}}&dateTo={{end_date}}"
-              target="_blank"
+              href="#"
+              hx-get="{% url 'visits' %}"
+              hx-target="#visits-section"
+              hx-push-url="true"
+              hx-vals='{"newVisitModal": "true"}'
             >
               {% translate "Add Visit" %}
             </a>
@@ -152,11 +154,7 @@
 <script src="{% static 'js/flowbite.min.js' %}"></script>
 <script>
   document.body.addEventListener("htmx:afterOnLoad", (event) => {
-    var datepicker = document.querySelector(".datepicker-main");
-    var datepickerInput = document.querySelector("#date-range-picker");
-    if (datepickerInput && !datepicker) {
-      window.initDatepickers();
-    }
+    window.initDatepickers()
   });
 </script>
 {% endblock %}

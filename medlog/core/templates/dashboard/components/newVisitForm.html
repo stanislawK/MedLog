@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load static %}
+<form hx-post="{% url 'visits' %}">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <p class="my-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+    {% endfor %}
+    {% endif %}
+    <div class="my-4">
+        <label for="{{form.specialist.id_for_label}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{% translate "Specialist" %}</label>
+        <input type="text" name="specialist" id="specialist" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Jane Doe" required />
+        {% if form.specialist.errors %}
+        {% for error in form.specialist.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="mb-4">
+        <label for="{{ form.date.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{% translate "Date" %}</label>
+        <div id="visit-datepicker" class="flex items-center">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          </div>
+          <input datepicker datepicker-format="yyyy-mm-dd" id="default-datepicker" name="date" value={% now "Y-m-d" %} type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-custom-gray-100 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Select date" required autocomplete="off">
+        </div>
+        {% if form.date.errors %}
+        {% for error in form.date.errors %}
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <button type="submit" class="my-4 w-full text-white bg-primary-700 hover:bg-primary-800 focus:ring-2 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-custom-gray-200 dark:hover:bg-custom-gray-300 dark:focus:ring-white">{% translate "Add visit" %}</button>
+</form>
+<script src="{% static 'js/flowbite.min.js' %}"></script>
+<script type="module">
+  import { Datepicker } from "{% static 'js/flowbite.min.js' %}";
+  var datepickerVisitInput = document.querySelector("#visit-datepicker");
+  const datepicker = new Datepicker(datepickerVisitInput)
+</script>

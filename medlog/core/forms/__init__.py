@@ -4,3 +4,4 @@ from .medicine import MedicineForm as MedicineForm
 from .user import CustomUserChangeForm as CustomUserChangeForm
 from .user import CustomUserCreationForm as CustomUserCreationForm
 from .user import LoginForm as LoginForm
+from .visit import VisitForm as VisitForm

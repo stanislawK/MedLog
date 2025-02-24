@@ -4,6 +4,7 @@
 {% load static %}
 <section id="mainDashboardSection" class="bg-white dark:bg-custom-gray-400 overflow-x-hidden h-screen">
     {% if show_medicine_modal == True and medicine_form %}{% include "dashboard/components/addMedicineModal.html" with form=medicine_form medicine_type=medicine_type %}{% endif %}
+    {% if show_visit_modal == True and form %}{% include "dashboard/components/newVisitModal.html" with form=form %}{% endif %}
     {% include "dashboard/components/navbar.html" %}
 
     {% with request.resolver_match.url_name as curr_url_name %}

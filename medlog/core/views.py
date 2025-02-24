@@ -9,7 +9,7 @@ from django.views.decorators.http import require_GET, require_http_methods, requ
 from django_htmx.http import HttpResponseClientRedirect
 from weasyprint import HTML
 
-from core.forms import LogEntryForm, LoginForm, MedicineForm
+from core.forms import LogEntryForm, LoginForm, MedicineForm, VisitForm
 from core.models import Medicine, Visit
 from core.utils import (
     HtmxHttpRequest,
@@ -167,10 +167,26 @@ def logs_stats_view(request: HtmxHttpRequest) -> HttpResponse:
     return logs_history_view(request)
 
 
-@require_GET
+@require_http_methods(["GET", "POST"])
 @login_required
 def visits_view(request: HtmxHttpRequest) -> HttpResponse:
     context = dict()
+
+    # Add visit
+    if request.method == "POST" and request.htmx:
+        form = VisitForm(request.POST)
+        if form.is_valid():
+            Visit.objects.create(user=request.user, **form.cleaned_data)
+            return HttpResponseClientRedirect("/dashboard/visits/")
+        else:
+            context["show_visit_modal"] = True
+            context["form"] = form
+
+    # Display modal with visit form
+    elif request.GET.get("newVisitModal", "false") == "true":
+        context["show_visit_modal"] = True
+        context["form"] = VisitForm()
+
     if start_date := request.GET.get("dateFrom"):
         try:
             start_date = date.fromisoformat(start_date)
