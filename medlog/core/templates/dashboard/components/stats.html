@@ -1,0 +1,159 @@
+{% extends "dashboard/main.html" %}
+{% load i18n %}
+{% load static %}
+{% block dashboard_content %}
+<section
+  class="bg-white py-8 antialiased dark:bg-custom-gray-300 md:py-16"
+  id="stats-section"
+>
+
+<div class="max-w-sm w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
+    <div class="flex justify-between mb-3">
+      <div class="flex items-center">
+        <div class="flex justify-center items-center">
+          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Your team's progress</h5>
+
+        </div>
+      </div>
+    </div>
+  
+    <!-- Radial Chart -->
+    <div class="py-6" id="radial-chart"></div>
+  
+    <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+      <div class="flex justify-between items-center pt-5">
+        <!-- Button -->
+        <button
+          id="dropdownDefaultButton"
+          data-dropdown-toggle="lastDaysdropdown"
+          data-dropdown-placement="bottom"
+          class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+          type="button">
+          Last 30 days
+          <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+          </svg>
+        </button>
+        <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
+              </li>
+            </ul>
+        </div>
+    </div>
+  </div>
+</section>
+
+<script src="{% static 'js/apexcharts.min.js' %}"></script>
+<script>
+const getAcutesChartOptions = () => {
+  let percentage;
+  let color;
+  if ({{ acutes_count }} > 0) {
+    percentage = Math.round({{ acutes_count }} / 30 * 100)
+    color = "#5efc03"
+    if (percentage < 50) {
+      color = "#5efc03"
+    } else if (percentage < 75) {
+      color = "#fcfc03"
+    } else {
+      color = "#fc0303"
+    }
+  } else {
+    percentage = 0
+    color = "#5efc03"
+  }
+  
+    return {
+      series: [percentage],
+      colors: [color],
+      chart: {
+        height: "350px",
+        width: "100%",
+        type: "radialBar",
+        sparkline: {
+          enabled: true,
+        },
+      },
+      plotOptions: {
+        radialBar: {
+          track: {
+            background: '#E5E7EB',
+          },
+          dataLabels: {
+            show: true,
+            total: {
+                showAlways: true,
+                show: true,
+                label: "Acutes taken",
+                fontFamily: "Inter, sans-serif",
+                fontSize: '14px',
+                offsetY: 0,
+                formatter: function (w) {
+                  const sum = w.globals.seriesTotals.reduce((a, b) => {
+                    return a + b
+                  }, 0)
+                  return {{ acutes_count }} + ' days'
+                },
+              },
+          },
+          hollow: {
+            margin: 5,
+            size: "50%",
+          }
+        },
+      },
+      grid: {
+        show: false,
+        strokeDashArray: 4,
+        padding: {
+          left: 2,
+          right: 2,
+          top: -23,
+          bottom: -20,
+        },
+      },
+      labels: ["Acutes limit"],
+
+      legend: {
+        show: true,
+        position: "bottom",
+        fontFamily: "Inter, sans-serif",
+      },
+      tooltip: {
+        enabled: true,
+        x: {
+          show: false,
+        },
+      },
+      yaxis: {
+        show: false,
+        labels: {
+          formatter: function (value) {
+            return value + '%';
+          }
+        }
+      }
+    }
+  }
+  
+  if (document.getElementById("radial-chart") && typeof ApexCharts !== 'undefined') {
+    const acutesChart = new ApexCharts(document.querySelector("#radial-chart"), getAcutesChartOptions());
+    acutesChart.render();
+  }
+  
+</script>
+{% endblock %}

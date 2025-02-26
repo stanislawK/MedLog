@@ -29,6 +29,21 @@ class Visit(models.Model):
         :rtype: Visit
         """
         return user.visits.filter(date__gte=date.today()).order_by("date").first()
+<<<<<<< Updated upstream
+=======
+
+    @classmethod
+    def last_visit(cls: Self, user: "User") -> Self | None:
+        """
+        Get the last visit of a user.
+
+        :param user: The user for whom to get the last visit.
+        :type user: User
+        :return: The last visit of the user or None if there are no past visits.
+        :rtype: Visit
+        """
+        return user.visits.filter(date__lt=date.today()).order_by("-date").first()
+>>>>>>> Stashed changes
 
     @staticmethod
     def days_to_next_visit(next_visit: Self | None) -> int | None:
