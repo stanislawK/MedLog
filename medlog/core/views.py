@@ -164,7 +164,13 @@ def export_report_view(request: HtmxHttpRequest) -> FileResponse:
 @require_GET
 @login_required
 def logs_stats_view(request: HtmxHttpRequest) -> HttpResponse:
-    return logs_history_view(request)
+    context = dict()
+    acutes_days_from = 30
+    context["acutes_count"] = request.user.day_logs.filter(
+        date__gte=date.today() - timedelta(days=acutes_days_from),
+        medicines__type="acute",
+    ).count()
+    return render(request, "dashboard/components/stats.html", context=context)
 
 
 @require_http_methods(["GET", "POST"])
