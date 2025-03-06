@@ -7,11 +7,11 @@
   id="stats-section"
 >
 
-<div class="max-w-sm w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
+<div class="max-w-sm w-full bg-white rounded-lg shadow-sm dark:bg-custom-gray-400 p-4 md:p-6">
     <div class="flex justify-between mb-3">
       <div class="flex items-center">
         <div class="flex justify-center items-center">
-          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Your team's progress</h5>
+          <h5 class="text-xl leading-none text-gray-900 dark:text-white pe-1">{% translate "Days with acute" %}</h5>
 
         </div>
       </div>
@@ -27,7 +27,7 @@
           id="dropdownDefaultButton"
           data-dropdown-toggle="lastDaysdropdown"
           data-dropdown-placement="bottom"
-          class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+          class="text-sm font-medium text-gray-500 dark:text-white hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
           type="button">
           Last 30 days
           <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -56,9 +56,9 @@
     </div>
   </div>
 </section>
-
 <script src="{% static 'js/apexcharts.min.js' %}"></script>
 <script>
+(function() {
 const getAcutesChartOptions = () => {
   let percentage;
   let color;
@@ -75,6 +75,11 @@ const getAcutesChartOptions = () => {
   } else {
     percentage = 0
     color = "#5efc03"
+  }
+
+  let labelColor = 'black'
+  if (localStorage.getItem("color-theme") == "dark") {
+    labelColor = "white"
   }
   
     return {
@@ -95,12 +100,16 @@ const getAcutesChartOptions = () => {
           },
           dataLabels: {
             show: true,
+            value: {
+              color: labelColor,
+            },
             total: {
                 showAlways: true,
                 show: true,
                 label: "Acutes taken",
                 fontFamily: "Inter, sans-serif",
                 fontSize: '14px',
+                color: labelColor,
                 offsetY: 0,
                 formatter: function (w) {
                   const sum = w.globals.seriesTotals.reduce((a, b) => {
@@ -132,6 +141,9 @@ const getAcutesChartOptions = () => {
         show: true,
         position: "bottom",
         fontFamily: "Inter, sans-serif",
+        labels: {
+          colors: labelColor
+        }
       },
       tooltip: {
         enabled: true,
@@ -151,9 +163,9 @@ const getAcutesChartOptions = () => {
   }
   
   if (document.getElementById("radial-chart") && typeof ApexCharts !== 'undefined') {
-    const acutesChart = new ApexCharts(document.querySelector("#radial-chart"), getAcutesChartOptions());
+    const acutesChart = new ApexCharts(document.getElementById("radial-chart"), getAcutesChartOptions());
     acutesChart.render();
   }
-  
+})();
 </script>
 {% endblock %}
