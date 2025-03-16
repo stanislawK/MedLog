@@ -177,10 +177,6 @@ def test_export_report_view(authenticated_client: Client, user: User) -> None:
 
 @pytest.mark.django_db
 def test_visits_view(authenticated_client: Client, user: User) -> None:
-    # POST method not allowed
-    response = authenticated_client.post("/dashboard/visits/")
-    assert response.status_code == 405
-
     for i in range(1, 6):
         # Past visits
         Visit.objects.create(date=date.today() - timedelta(days=i), user=user)
@@ -218,6 +214,22 @@ def test_visits_view(authenticated_client: Client, user: User) -> None:
     assert response.context["visits"].count() == 0
     assert response.context["next_visit"] is not None
     assert response.context["days_to_next_visit"] == 1
+
+
+@pytest.mark.django_db
+def test_visits_view_create(authenticated_client: Client, user: User) -> None:
+    req_date = date.today().isoformat()
+    payload = {
+        "date": req_date,
+        "specialist": "test",
+    }
+    response = authenticated_client.post(
+        "/dashboard/visits/", payload, headers={"HX-Request": "true"}
+    )
+    assert response.status_code == 200
+    assert response.__class__.__name__ == "HttpResponseClientRedirect"
+    assert response.headers["HX-Redirect"] == "/dashboard/visits/"
+    assert Visit.objects.filter(date=req_date, specialist="test").count() == 1
 
 
 @pytest.mark.django_db
