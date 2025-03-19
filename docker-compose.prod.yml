@@ -33,25 +33,15 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.medlog.loadbalancer.server.port=8000
-      - traefik.http.routers.medlog.rule=Host(`${TRAEFIK_HOST}`)
+      - traefik.http.routers.medlog.rule=Host(`${TRAEFIK_HOST}`)||Host(`${TRAEFIK_HOST_PROD}`)
+      - traefik.http.routers.medlog.tls=true
+       traefik.http.routers.medlog.tls.certresolver=cloudflare
       - traefik.http.routers.medlog.entrypoints=web
+      - traefik.http.routers.medlog.entrypoints=websecure
       - traefik.http.routers.medlog.priority=1
     depends_on:
       postgres:
         condition: service_healthy
-  proxy:
-    image: "traefik:v3.0"
-    container_name: "medlog_proxy"
-    env_file: .env
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "8080:8080"
-    networks:
-      - traefik_proxy
-    volumes:
-      - "./traefik/traefik.dev.yaml:/traefik.yaml:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
   medlog_nginx:
     image: nginx:stable-alpine
     restart: unless-stopped
@@ -65,12 +55,13 @@ services:
       - medlog
     labels:
       - traefik.enable=${NGINX_TRAEFIK_ENABLE}
-      - traefik.http.routers.staticfiles.rule=Host(`${TRAEFIK_HOST}`) && PathPrefix(`/static/`)
-      - traefik.http.routers.staticfiles.entrypoints=web
-      - traefik.http.routers.staticfiles.priority=2
+      - traefik.http.routers.mlstaticfiles.rule=Host(`${TRAEFIK_HOST}`) && PathPrefix(`/static/`)
+      - traefik.http.routers.mlstaticfiles.entrypoints=web
+      - traefik.http.routers.mlstaticfiles.priority=2
 volumes:
   postgres-data:
   staticfiles:
 
 networks:
   traefik_proxy:
+    external: true
