@@ -35,7 +35,7 @@ services:
       - traefik.http.services.medlog.loadbalancer.server.port=8000
       - traefik.http.routers.medlog.rule=Host(`${TRAEFIK_HOST}`)||Host(`${TRAEFIK_HOST_PROD}`)
       - traefik.http.routers.medlog.tls=true
-       traefik.http.routers.medlog.tls.certresolver=cloudflare
+      - traefik.http.routers.medlog.tls.certresolver=cloudflare
       - traefik.http.routers.medlog.entrypoints=web
       - traefik.http.routers.medlog.entrypoints=websecure
       - traefik.http.routers.medlog.priority=1
