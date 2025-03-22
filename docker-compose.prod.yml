@@ -55,8 +55,10 @@ services:
       - medlog
     labels:
       - traefik.enable=${NGINX_TRAEFIK_ENABLE}
-      - traefik.http.routers.mlstaticfiles.rule=Host(`${TRAEFIK_HOST}`) && PathPrefix(`/static/`)
+      - traefik.http.routers.mlstaticfiles.rule=(Host(`${TRAEFIK_HOST}`) || Host(`${TRAEFIK_HOST_PROD}`)) && PathPrefix(`/static/`)
       - traefik.http.routers.mlstaticfiles.entrypoints=web
+      - traefik.http.routers.mlstaticfiles.entrypoints=websecure
+      - traefik.http.routers.mlstaticfiles.tls.certresolver=cloudflare
       - traefik.http.routers.mlstaticfiles.priority=2
 volumes:
   postgres-data:
