@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-14 19:26+0100\n"
+"POT-Creation-Date: 2025-03-22 22:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,6 +50,16 @@ msgstr "Hasło"
 msgid "Invalid email or password"
 msgstr "Niepoprawny adres email lub hasło"
 
+#: core/forms/visit.py:6 core/templates/dashboard/components/addLogForm.html:66
+#: core/templates/dashboard/components/newVisitForm.html:20
+msgid "Date"
+msgstr "Data wpisu"
+
+#: core/forms/visit.py:8
+#: core/templates/dashboard/components/newVisitForm.html:11
+msgid "Specialist"
+msgstr "Specjalista/ka"
+
 #: core/models/user.py:19
 msgid "The email must be set"
 msgstr "Adres email jest wymagany"
@@ -74,70 +84,72 @@ msgstr "Zaloguj się do swojego konta"
 msgid "Sign in"
 msgstr "Logowanie"
 
-#: core/templates/dashboard/components/addLogForm.html:12
+#: core/templates/dashboard/components/addLogForm.html:15
 msgid "Choose the date of the log:"
 msgstr "Data wpisu"
 
-#: core/templates/dashboard/components/addLogForm.html:63
-msgid "Date"
-msgstr "Data wpisu"
-
-#: core/templates/dashboard/components/addLogForm.html:95
+#: core/templates/dashboard/components/addLogForm.html:98
 msgid "Choose strength (0-10):"
 msgstr "Wybierz nasielenie"
 
-#: core/templates/dashboard/components/addLogForm.html:149
+#: core/templates/dashboard/components/addLogForm.html:152
 msgid "Strength"
 msgstr "Nasilenie"
 
-#: core/templates/dashboard/components/addLogForm.html:186
+#: core/templates/dashboard/components/addLogForm.html:189
 #, fuzzy
 #| msgid "Preventive medicine"
 msgid "Preventitive medicines"
 msgstr "Lek zapobiegawczy"
 
-#: core/templates/dashboard/components/addLogForm.html:274
+#: core/templates/dashboard/components/addLogForm.html:277
 #, fuzzy
 #| msgid "Preventive medicine"
 msgid "Add new preventive medicine"
 msgstr "Lek zapobiegawczy"
 
-#: core/templates/dashboard/components/addLogForm.html:294
+#: core/templates/dashboard/components/addLogForm.html:297
 #, fuzzy
 #| msgid "Acute medicine"
 msgid "Acute medicines"
 msgstr "Lek doraźny"
 
-#: core/templates/dashboard/components/addLogForm.html:382
+#: core/templates/dashboard/components/addLogForm.html:385
 #, fuzzy
 #| msgid "Acute medicine"
 msgid "Add new acute medicine"
 msgstr "Lek doraźny"
 
-#: core/templates/dashboard/components/addLogForm.html:399
+#: core/templates/dashboard/components/addLogForm.html:402
 msgid "Notes"
 msgstr "Notatki"
 
-#: core/templates/dashboard/components/addLogForm.html:417
+#: core/templates/dashboard/components/addLogForm.html:420
 msgid "Add HR and Blood Pressure"
 msgstr "Dodaj tętno, i ciśnienie krwi"
 
-#: core/templates/dashboard/components/addLogForm.html:458
-#: core/templates/dashboard/components/addLogForm.html:505
+#: core/templates/dashboard/components/addLogForm.html:461
+#: core/templates/dashboard/components/addLogForm.html:508
 msgid "Systolic pressure"
 msgstr "Ciś. skurczowe"
 
-#: core/templates/dashboard/components/addLogForm.html:473
-#: core/templates/dashboard/components/addLogForm.html:519
+#: core/templates/dashboard/components/addLogForm.html:476
+#: core/templates/dashboard/components/addLogForm.html:522
 msgid "Diastolic pressure"
 msgstr "Ciś. rozkurczowe"
 
-#: core/templates/dashboard/components/addLogForm.html:488
-#: core/templates/dashboard/components/addLogForm.html:533
+#: core/templates/dashboard/components/addLogForm.html:491
+#: core/templates/dashboard/components/addLogForm.html:536
 msgid "Heart Rate"
 msgstr "Tętno"
 
-#: core/templates/dashboard/components/addLogForm.html:546
+#: core/templates/dashboard/components/addLogForm.html:550
+#, fuzzy
+#| msgid "Add Log"
+msgid "Edit Log"
+msgstr "Dodaj Wpis"
+
+#: core/templates/dashboard/components/addLogForm.html:552
 msgid "Add Log"
 msgstr "Dodaj Wpis"
 
@@ -148,52 +160,56 @@ msgstr "Dodaj Wpis"
 msgid "Add new medicine"
 msgstr "Lek doraźny"
 
-#: core/templates/dashboard/components/logList.html:20
+#: core/templates/dashboard/components/logList.html:21
 #: core/templates/dashboard/components/navbar.html:85
 msgid "Export Logs"
 msgstr "Eksport Logów"
 
-#: core/templates/dashboard/components/logList.html:54
+#: core/templates/dashboard/components/logList.html:55
+#: core/templates/dashboard/components/visitList.html:80
 #, fuzzy
 #| msgid "Get started"
 msgid "Select date start"
 msgstr "Rozpocznij"
 
-#: core/templates/dashboard/components/logList.html:58
+#: core/templates/dashboard/components/logList.html:59
+#: core/templates/dashboard/components/visitList.html:84
 msgid "to"
 msgstr "do"
 
-#: core/templates/dashboard/components/logList.html:83
+#: core/templates/dashboard/components/logList.html:84
+#: core/templates/dashboard/components/visitList.html:109
 #, fuzzy
 #| msgid "Get started"
 msgid "Select date end"
 msgstr "Rozpocznij"
 
-#: core/templates/dashboard/components/logList.html:100
+#: core/templates/dashboard/components/logListRow.html:10
+#: core/templates/dashboard/components/visitRow.html:10
 #, fuzzy
 #| msgid "Date"
 msgid "Date:"
 msgstr "Data wpisu"
 
-#: core/templates/dashboard/components/logList.html:113
+#: core/templates/dashboard/components/logListRow.html:23
 #, fuzzy
 #| msgid "Strength"
 msgid "Strength:"
 msgstr "Nasilenie"
 
-#: core/templates/dashboard/components/logList.html:126
+#: core/templates/dashboard/components/logListRow.html:36
 #, fuzzy
 #| msgid "Preventive medicine"
 msgid "Preventive medicine:"
 msgstr "Lek zapobiegawczy"
 
-#: core/templates/dashboard/components/logList.html:152
+#: core/templates/dashboard/components/logListRow.html:62
 #, fuzzy
 #| msgid "Acute medicine"
 msgid "Acute medicine:"
 msgstr "Lek doraźny"
 
-#: core/templates/dashboard/components/logList.html:178
+#: core/templates/dashboard/components/logListRow.html:88
 msgid "HR:"
 msgstr "Tętno"
 
@@ -219,6 +235,46 @@ msgstr "Wizyty"
 #: core/templates/dashboard/components/navbar.html:90
 msgid "Logout"
 msgstr "Wyloguj"
+
+#: core/templates/dashboard/components/newVisitForm.html:32
+msgid "Add visit"
+msgstr "Dodaj wizytę"
+
+#: core/templates/dashboard/components/newVisitModal.html:14
+#, fuzzy
+#| msgid "Add new"
+msgid "Add new visit"
+msgstr "Dodaj nowy"
+
+#: core/templates/dashboard/components/stats.html:14
+msgid "Days with acute"
+msgstr "Dni z lekiem doraźnym"
+
+#: core/templates/dashboard/components/visitList.html:45
+#, fuzzy
+#| msgid "Visits"
+msgid "Add Visit"
+msgstr "Wizyty"
+
+#: core/templates/dashboard/components/visitList.html:124
+msgid "Next visit:"
+msgstr "Następna wizyta:"
+
+#: core/templates/dashboard/components/visitList.html:135
+msgid "Days to next visit:"
+msgstr "Dni do następnej wizyty:"
+
+#: core/templates/dashboard/components/visitList.html:140
+msgid "days"
+msgstr "dni"
+
+#: core/templates/dashboard/components/visitRow.html:23
+msgid "Planned:"
+msgstr "Zaplanowana:"
+
+#: core/templates/dashboard/components/visitRow.html:36
+msgid "Specialist:"
+msgstr "Specjalista/ka"
 
 #: core/templates/home.html:16
 msgid "MedLog: Your Personal Health Record Keeper"
@@ -257,9 +313,6 @@ msgstr "English"
 
 #~ msgid "Preventive treatment"
 #~ msgstr "Leczenie zapobiegawcze"
-
-#~ msgid "Add new"
-#~ msgstr "Dodaj nowy"
 
 #~ msgid "Acute care"
 #~ msgstr "Leczenie doraźne"
