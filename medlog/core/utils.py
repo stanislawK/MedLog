@@ -1,6 +1,9 @@
 from datetime import date
 from typing import Any, Generator
+from urllib.parse import urlsplit
 
+from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest
 from django.urls import Resolver404, resolve
 from django_htmx.middleware import HtmxDetails
@@ -61,11 +64,11 @@ def populate_hr_records(
 
 
 def is_log_history_url(url: str) -> bool:
-    if "?" in url:
-        url = url.split("?")[0]
-    print(url)
+    splitted = urlsplit(url)
+    if splitted.netloc not in settings.ALLOWED_HOSTS:
+        raise PermissionDenied
     try:
-        return resolve(url).url_name == "logs_history"
+        return resolve(splitted.path).url_name == "logs_history"
     except Resolver404:
         return False
 

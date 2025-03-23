@@ -29,10 +29,13 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = [os.getenv("TRAEFIK_HOST"), os.getenv("TRAEFIK_HOST_PROD")]
- 
-#CSRF
+
+# CSRF
 CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("TRAEFIK_HOST")}', f'https://{os.getenv("TRAEFIK_HOST_PROD")}']
+CSRF_TRUSTED_ORIGINS = [
+    f'https://{os.getenv("TRAEFIK_HOST")}',
+    f'https://{os.getenv("TRAEFIK_HOST_PROD")}',
+]
 
 # Application definition
 
@@ -156,3 +159,17 @@ STATICFILES_FINDERS = (
 
 LOGIN_URL = "/?loginModal=true"
 AUTH_USER_MODEL = "core.User"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "DEBUG",
+    },
+}
