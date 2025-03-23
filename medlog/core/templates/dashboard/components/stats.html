@@ -63,7 +63,7 @@ const getAcutesChartOptions = () => {
   let percentage;
   let color;
   if ({{ acutes_count }} > 0) {
-    percentage = Math.round({{ acutes_count }} / 30 * 100)
+    percentage = Math.round({{ acutes_count }} / 10 * 100)
     color = "#5efc03"
     if (percentage < 50) {
       color = "#5efc03"

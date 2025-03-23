@@ -77,7 +77,7 @@ def add_log_form(request: HtmxHttpRequest, req_date: str | None = None) -> HttpR
     context["previous_day"] = previous_day.isoformat()
 
     # Handling for inline editing in the list
-    if request.htmx and is_log_history_url(request.htmx.current_url_abs_path):
+    if request.htmx and is_log_history_url(request.htmx.current_url):
         context["edit"] = True
 
     if context.get("edit") and request.method == "POST":
