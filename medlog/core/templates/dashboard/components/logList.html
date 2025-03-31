@@ -100,14 +100,7 @@
     </div>
   </div>
 </section>
-<script src="{% static 'js/flowbite.min.js' %}"></script>
-<script>
-  document.body.addEventListener("htmx:afterOnLoad", (event) => {
-    var datepicker = document.querySelector(".datepicker-main");
-    var datepickerInput = document.querySelector("#date-range-picker");
-    if (datepickerInput && !datepicker) {
-      window.initDatepickers();
-    }
-  });
+<script type="module">
+  window.initDatepickers();
 </script>
 {% endblock %}
