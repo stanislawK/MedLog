@@ -151,10 +151,7 @@
     </div>
   </div>
 </section>
-<script src="{% static 'js/flowbite.min.js' %}"></script>
-<script>
-  document.body.addEventListener("htmx:afterOnLoad", (event) => {
-    window.initDatepickers()
-  });
+<script type="module">
+  window.initDatepickers();
 </script>
 {% endblock %}
